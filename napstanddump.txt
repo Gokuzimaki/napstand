@@ -1,0 +1,94 @@
+<div class="single_image_hold">
+		            				<div class="img_placeholder">
+		            					<img src="<?php echo $host_addr;?>images/test1.png"/>
+		            				</div>
+			            			<div id="editimgsoptionlinks" class="img_options">
+			            				<ul> 
+			            					<li>
+			            						<a href="<?php echo $host_addr;?>images/test1.png" data-lightbox="muralgallery" data-src="<?php echo $host_addr;?>images/test1.png" name="viewpic">
+			            							<i class="fa fa-eye"></i>
+			            						</a>
+			            					</li>
+			            					<li><a href="##delete" name="deletepic"><i class="fa fa-trash"></i></a></li>
+			            				</ul>
+			            			</div>
+		            			</div>
+		            			<div class="single_image_hold">
+		            				<div class="img_placeholder">
+		            					<img src="<?php echo $host_addr;?>images/test2.png"/>
+		            				</div>
+			            			<div id="editimgsoptionlinks" class="img_options">
+			            				<ul> 
+			            					<li>
+			            						<a href="<?php echo $host_addr;?>images/test2.png" data-lightbox="muralgallery" data-src="<?php echo $host_addr;?>images/test2.png" name="viewpic">
+			            							<i class="fa fa-eye"></i>
+			            						</a>
+			            					</li>
+			            					<li><a href="##delete" name="deletepic"><i class="fa fa-trash"></i></a></li>
+			            				</ul>
+			            			</div>
+		            			</div>
+		            			<div class="single_image_hold" name="albumimg_linkid">
+		            				<div class="img_placeholder">
+		            					<img src="<?php echo $host_addr;?>images/test3.jpg"/>
+		            				</div>
+			            			<div id="editimgsoptionlinks" class="img_options">
+			            				<ul> 
+			            					<li>
+			            						<a href="<?php echo $host_addr;?>images/test3.jpg" data-id="" data-lightbox="muralgallery" data-src="<?php echo $host_addr;?>images/test3.jpg" name="viewpic">
+			            							<i class="fa fa-eye"></i>
+			            						</a>
+			            					</li>
+			            					<li><a href="##delete" name="deletepic"><i class="fa fa-trash"></i></a></li>
+			            				</ul>
+			            			</div>
+		            			</div>
+		            			
+		            			<div class="single_image_hold">
+		            				<div class="img_placeholder">
+		            					<img src="<?php echo $host_addr;?>images/default.gif"/>
+		            				</div>
+			            			<div id="editimgsoptionlinks" class="img_options">
+			            				<ul> 
+			            					<li>
+			            						<a href="<?php echo $host_addr;?>images/default.gif" data-lightbox="muralgallery" data-src="<?php echo $host_addr;?>images/default.gif" name="viewpic">
+			            							<i class="fa fa-eye"></i>
+			            						</a>
+			            					</li>
+			            					<li><a href="##delete" name="deletepic"><i class="fa fa-trash"></i></a></li>
+			            				</ul>
+			            			</div>
+		            			</div>
+
+
+
+
+
+
+
+
+
+
+
+"  <br />↵<font size='1'><table class='xdebug-error xe-warning' dir='ltr' border='1' cellspacing='0' cellpadding='1'>↵<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Warning: opendir(../files/original/,../files/original/) [&lt;a href='function.opendir'&gt;function.opendir&lt;/a&gt;]: The system cannot find the file specified. (code: 2) in C:\wamp\www\napstand\snippets\connection.php on line <i>494</i></th></tr>↵<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>↵<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>↵<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0043</td><td bgcolor='#eeeeec' align='right'>1185512</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='C:\wamp\www\napstand\snippets\display.php' bgcolor='#eeeeec'>..\display.php<b>:</b>0</td></tr>↵<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0544</td><td bgcolor='#eeeeec' align='right'>5463912</td><td bgcolor='#eeeeec'>genericImageUpload(  )</td><td title='C:\wamp\www\napstand\snippets\display.php' bgcolor='#eeeeec'>..\display.php<b>:</b>1382</td></tr>↵<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0733</td><td bgcolor='#eeeeec' align='right'>5465000</td><td bgcolor='#eeeeec'>checkExistingFile(  )</td><td title='C:\wamp\www\napstand\snippets\connection.php' bgcolor='#eeeeec'>..\connection.php<b>:</b>707</td></tr>↵<tr><td bgcolor='#eeeeec' align='center'>4</td><td bgcolor='#eeeeec' align='center'>0.0733</td><td bgcolor='#eeeeec' align='right'>5465464</td><td bgcolor='#eeeeec'><a href='http://www.php.net/opendir' target='_new'>opendir</a>↵(  )</td><td title='C:\wamp\www\napstand\snippets\connection.php' bgcolor='#eeeeec'>..\connection.php<b>:</b>494</td></tr>↵</table></font>↵<br />↵<font size='1'><table class='xdebug-error xe-warning' dir='ltr' border='1' cellspacing='0' cellpadding='1'>↵<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Warning: opendir(../files/original/) [&lt;a href='function.opendir'&gt;function.opendir&lt;/a&gt;]: failed to open dir: No such file or directory in C:\wamp\www\napstand\snippets\connection.php on line <i>494</i></th></tr>↵<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>↵<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>↵<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0043</td><td bgcolor='#eeeeec' align='right'>1185512</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='C:\wamp\www\napstand\snippets\display.php' bgcolor='#eeeeec'>..\display.php<b>:</b>0</td></tr>↵<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0544</td><td bgcolor='#eeeeec' align='right'>5463912</td><td bgcolor='#eeeeec'>genericImageUpload(  )</td><td title='C:\wamp\www\napstand\snippets\display.php' bgcolor='#eeeeec'>..\display.php<b>:</b>1382</td></tr>↵<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.0733</td><td bgcolor='#eeeeec' align='right'>5465000</td><td bgcolor='#eeeeec'>checkExistingFile(  )</td><td title='C:\wamp\www\napstand\snippets\connection.php' bgcolor='#eeeeec'>..\connection.php<b>:</b>707</td></tr>↵<tr><td bgcolor='#eeeeec' align='center'>4</td><td bgcolor='#eeeeec' align='center'>0.0733</td><td bgcolor='#eeeeec' align='right'>5465464</td><td bgcolor='#eeeeec'><a href='http://www.php.net/opendir' target='_new'>opendir</a>↵(  )</td><td title='C:\wamp\www\napstand\snippets\connection.php' bgcolor='#eeeeec'>..\connection.php<b>:</b>494</td></tr>↵</table></font>↵<br />↵<font size='1'><table class='xdebug-error xe-warning' dir='ltr' border='1' cellspacing='0' cellpadding='1'>↵<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Warning: move_uploaded_file(../files/original/1.JPG) [&lt;a href='function.move-uploaded-file'&gt;function.move-uploaded-file&lt;/a&gt;]: failed to open stream: No such file or directory in C:\wamp\www\napstand\snippets\connection.php on line <i>716</i></th></tr>↵<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>↵<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>↵<tr><td bgcolor='#eeeeec' align='center'>1<…>Location</th></tr>↵<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0043</td><td bgcolor='#eeeeec' align='right'>1185512</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='C:\wamp\www\napstand\snippets\display.php' bgcolor='#eeeeec'>..\display.php<b>:</b>0</td></tr>↵<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0544</td><td bgcolor='#eeeeec' align='right'>5463912</td><td bgcolor='#eeeeec'>genericImageUpload(  )</td><td title='C:\wamp\www\napstand\snippets\display.php' bgcolor='#eeeeec'>..\display.php<b>:</b>1382</td></tr>↵<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.1681</td><td bgcolor='#eeeeec' align='right'>5471232</td><td bgcolor='#eeeeec'>imageResize(  )</td><td title='C:\wamp\www\napstand\snippets\connection.php' bgcolor='#eeeeec'>..\connection.php<b>:</b>743</td></tr>↵<tr><td bgcolor='#eeeeec' align='center'>4</td><td bgcolor='#eeeeec' align='center'>0.1681</td><td bgcolor='#eeeeec' align='right'>5471280</td><td bgcolor='#eeeeec'><a href='http://www.php.net/getimagesize' target='_new'>getimagesize</a>↵(  )</td><td title='C:\wamp\www\napstand\snippets\connection.php' bgcolor='#eeeeec'>..\connection.php<b>:</b>389</td></tr>↵</table></font>↵<br />↵<font size='1'><table class='xdebug-error xe-warning' dir='ltr' border='1' cellspacing='0' cellpadding='1'>↵<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Warning: getimagesize(../files/original/1.JPG) [&lt;a href='function.getimagesize'&gt;function.getimagesize&lt;/a&gt;]: failed to open stream: No such file or directory in C:\wamp\www\napstand\snippets\connection.php on line <i>389</i></th></tr>↵<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>↵<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>↵<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0043</td><td bgcolor='#eeeeec' align='right'>1185512</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='C:\wamp\www\napstand\snippets\display.php' bgcolor='#eeeeec'>..\display.php<b>:</b>0</td></tr>↵<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.0544</td><td bgcolor='#eeeeec' align='right'>5463912</td><td bgcolor='#eeeeec'>genericImageUpload(  )</td><td title='C:\wamp\www\napstand\snippets\display.php' bgcolor='#eeeeec'>..\display.php<b>:</b>1382</td></tr>↵<tr><td bgcolor='#eeeeec' align='center'>3</td><td bgcolor='#eeeeec' align='center'>0.1692</td><td bgcolor='#eeeeec' align='right'>5471632</td><td bgcolor='#eeeeec'>imageResize(  )</td><td title='C:\wamp\www\napstand\snippets\connection.php' bgcolor='#eeeeec'>..\connection.php<b>:</b>743</td></tr>↵<tr><td bgcolor='#eeeeec' align='center'>4</td><td bgcolor='#eeeeec' align='center'>0.1692</td><td bgcolor='#eeeeec' align='right'>5471680</td><td bgcolor='#eeeeec'><a href='http://www.php.net/getimagesize' target='_new'>getimagesize</a>↵(  )</td><td title='C:\wamp\www\napstand\snippets\connection.php' bgcolor='#eeeeec'>..\connection.php<b>:</b>389</td></tr>↵</table></font>↵<br />↵<font size='1'><table class='xdebug-error xe-warning' dir='ltr' border='1' cellspacing='0' cellpadding='1'>↵<tr><th align='left' bgcolor='#f57900' colspan="5"><span style='background-color: #cc0000; color: #fce94f; font-size: x-large;'>( ! )</span> Warning: getimagesize(../files/original/1.JPG) [&lt;a href='function.getimagesize'&gt;function.getimagesize&lt;/a&gt;]: failed to open stream: No such file or directory in C:\wamp\www\napstand\snippets\display.php on line <i>1391</i></th></tr>↵<tr><th align='left' bgcolor='#e9b96e' colspan='5'>Call Stack</th></tr>↵<tr><th align='center' bgcolor='#eeeeec'>#</th><th align='left' bgcolor='#eeeeec'>Time</th><th align='left' bgcolor='#eeeeec'>Memory</th><th align='left' bgcolor='#eeeeec'>Function</th><th align='left' bgcolor='#eeeeec'>Location</th></tr>↵<tr><td bgcolor='#eeeeec' align='center'>1</td><td bgcolor='#eeeeec' align='center'>0.0043</td><td bgcolor='#eeeeec' align='right'>1185512</td><td bgcolor='#eeeeec'>{main}(  )</td><td title='C:\wamp\www\napstand\snippets\display.php' bgcolor='#eeeeec'>..\display.php<b>:</b>0</td></tr>↵<tr><td bgcolor='#eeeeec' align='center'>2</td><td bgcolor='#eeeeec' align='center'>0.1697</td><td bgcolor='#eeeeec' align='right'>5466896</td><td bgcolor='#eeeeec'><a href='http://www.php.net/getimagesize' target='_new'>getimagesize</a>↵(  )</td><td title='C:\wamp\www\napstand\snippets\display.php' bgcolor='#eeeeec'>..\display.php<b>:</b>1391</td></tr>↵</table></font>↵{"original":".\/files\/original\/1.JPG","medsize":".\/files\/medsizes\/1.JPG","thumbnail":".\/files\/thumbnails\/1.JPG","imgid":"2","filesize":"171KB","filetitle":"1.JPG"}"
+s
+
+
+  576.47058823529<br>400<br>216.17647058824<br>150<br>{"original":".\/files\/originals\/1.JPG","medsize":".\/files\/medsizes\/1.JPG","thumbnail":".\/files\/thumbnails\/1.JPG","imgid":"3","filesize":"171KB","filetitle":"1.JPG"}"
+s
+
+
+<div class="col-xs-3 upload_section _1">
+																	<div class="img_prev_hold _1">
+																		<img src="<?php echo $host_addr;?>images/default.gif"/>
+																	</div>
+																	<div class="form-group">
+													                    <label>Select Image 1:</label>
+													                    <div class="input-group">
+													                      <div class="input-group-addon">
+													                        <i class="fa fa-file-image-o"></i>
+													                      </div>
+													                      <input type="file" name="image_1" class="form-control"/>
+													                    </div><!-- /.input group -->
+													                </div><!-- /.form group -->
+																</div>

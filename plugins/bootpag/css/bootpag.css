@@ -1,0 +1,14 @@
+div.general_ajax_ipp {
+    margin-bottom: 9px;
+    margin-top: -20px;
+}
+
+.general_ajax_ipp .ipp_hold {
+	position:relative;
+    max-width: 300px;
+    margin: auto;
+}
+
+.general_ajax_ipp .ipp_hold .general_ajax_select {
+    
+}

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<rss version="2.0">
+<channel>
+<title>The Website Title</title>
+<description>The Website description</description>
+<link>http://www.thewebsite.com</link>
+<item>
+<title>Test Feed post</title>
+<description>This is a test feed from the developing website, work is on going though so if you are reading this please ignore it,...or others that nay follow suit</description>
+<link>http://thewebsite.com/thepage.php</link>
+</item>
+</channel>
+</rss>
