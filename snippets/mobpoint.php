@@ -515,7 +515,7 @@ if($displaytype==""){
 		echo json_encode(array("success"=>"false","msg"=>"$msg","userid"=>"$userid","catdata"=>$outs['catdata'],"totalpages"=>"0"));
 
 	}
-}else if ($displaytype=="transactions") {
+}else if ($displaytype=="paymentstatus") {
 	# code...
 	if($test!==""){
 		$page=mysql_real_escape_string($_GET['page']);
@@ -547,6 +547,7 @@ if($displaytype==""){
 			echo $scriptout;
 		}	
 	}else{
+		$totalpages=0; 
 		$msg="Retrieval fail";
 		$catdata[0]['transactionstatus']="no payment made";
 		echo json_encode(array("success"=>"false","msg"=>"$msg","userid"=>"$userid","catdata"=>$catdata,"totalpages"=>"0"));

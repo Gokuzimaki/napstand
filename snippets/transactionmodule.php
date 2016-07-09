@@ -282,6 +282,7 @@
 							'enddate' => "$enddate",
 							'status' => "$status",
 						);
+
 		return $row;
 	}
 	function getAllTransactions($viewer,$limit,$type="",$appuserid="",$contentid=""){
