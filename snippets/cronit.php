@@ -27,8 +27,9 @@
 
 	//change the publish status of scheduled content entries
 	if(mysql_num_rows(mysql_query("SHOW TABLES LIKE 'contententries'"))==1) {
-		$query1="UPDATE contententries SET releasedate='$fullperiod' AND publishstatus='published' WHERE (scheduledate<'$fullperiod' OR scheduledate='$fullperiod' or scheduledate='0000-00-00 00:00:00') AND publishstatus='scheduled'";
+		$query1="UPDATE contententries SET releasedate='$fullperiod', publishstatus='published' WHERE (scheduledate<'$fullperiod' OR scheduledate='$fullperiod' OR scheduledate='0000-00-00 00:00:00') AND publishstatus='scheduled'";
 		$run1=mysql_query($query1)or die(mysql_error()." Line".__LINE__);
+		// echo $query1;
 		// echo "cron here";
 	}
 		// echo "cron there";
