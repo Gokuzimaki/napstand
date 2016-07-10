@@ -11,7 +11,10 @@ require_once('tmhOAuth-master/tmhOAuth.php');
 require 'PHPMailer-master/PHPMailerAutoload.php';
 date_default_timezone_set("Africa/Lagos");
 $host_target_addr="http://".$_SERVER['SERVER_NAME']."/";
-$host_email_addr="set default email host addr";
+$host_email_addr="admin@napstand.com";
+$host_info_email_addr="info@napstand.com";
+$host_support_email_addr="support@napstand.com";
+$host_phonenumbers="+234 807 207 6302";
 //set to true on upload emails
 $host_email_send=false;
 $hostname_pvmart = "localhost";
@@ -25,10 +28,22 @@ if($host_target_addr=="http:///"){
 // echo $host_target_addr;
 $host_price_limit=3000;
 $host_app_pull_limit=15;
+
+// host session prefix and suffix
+$host_sessionvar_prefix='';
+$host_sessionvar_suffix='napstand';
+
+$host_admin_cron="";
 if(strpos($host_target_addr, "localhost")||strpos($host_target_addr, "wamp")){
   // for local server
+  $host_admin_cron="on";
   $host_addr="http://localhost/napstand/";
-}else if(strpos($host_target_addr, "ngrok")){
+}else if(strpos($host_target_addr, "ngrok.io/napstand")){
+  
+  $host_addr=$host_target_addr!=="http://"&&$host_target_addr!=="https://"?$host_target_addr."":"http://napstand.com/";
+  header("Access-Control-Allow-Origin: *");
+
+}else if(strpos($host_target_addr, "ngrok.io")){
   
   $host_addr=$host_target_addr!=="http://"&&$host_target_addr!=="https://"?$host_target_addr."napstand/":"http://napstand.com/";
   header("Access-Control-Allow-Origin: *");
@@ -51,6 +66,24 @@ if(strpos($host_target_addr, "localhost")||strpos($host_target_addr, "wamp")){
     
   
 }
+//vogue pay controller sections
+  $host_naira_symbol='&#8358;';
+  $host_vogue_merchantid="demo";
+  $host_vogue_transaction_url="https://voguepay.com/pay/";
+  $host_vogue_default_storeid="";
+  $host_vogue_success_url=''.$host_addr.'success.php';
+  $host_vogue_failure_url=''.$host_addr.'failure.php';
+  $host_vogue_notification_url=''.$host_addr.'snippets/notification.php';
+  $host_vogue_success_url_fieldname="success_url";
+  $host_vogue_failure_url_fieldname="failure_url";
+  $host_vogue_notification_url_fieldname="notification_url";
+  $host_vogue_image_url=$host_addr."images/voguepay.png";
+  $host_vogue_poweredby_text="This transaction is powered by VoguePay";
+// end
+/*Google Analytics*/
+  $host_gacode="000000";
+  $host_gaurl="$host_addr";
+/*end*/
 $host_default_poster=$host_addr.'images/napstandcover400x400.png';
 $host_default_cover_image=$host_addr.'images/napstandcover400x400.png';
 $wasl = @mysql_connect($hostname_pvmart, $username_pvmart, $password_pvmart) or die(mysql_error());
@@ -1939,7 +1972,7 @@ function getSingleLGA($id){
   return $row;
 } 
 function generateMailMarkup($from,$to,$title,$content,$footer,$type){
-  global $host_addr;
+  include('globalsmodule.php');
   $row=array();
   $phpmailermarkup='';
   $rowmarkup='

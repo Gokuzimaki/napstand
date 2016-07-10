@@ -3,9 +3,14 @@ var host_addr="http://"+location.hostname+"/";
 if(host_addr.indexOf('localhost/')>-1){
     host_addr="http://localhost/napstand/";
 }
-if(host_addr.indexOf('ngrok')>-1){
+if(host_addr.indexOf('ngrok.io')>-1){
     // console.log();
     var host_addr="http://"+location.hostname+"/napstand/";
+    // host_addr="http://localhost/napstand/";
+}
+if(host_addr.indexOf('ngrok.io/napstand')>-1){
+    // console.log();
+    var host_addr="http://"+location.hostname+"/";
     // host_addr="http://localhost/napstand/";
 }
 //get userid and usertype

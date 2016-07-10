@@ -1,7 +1,9 @@
 <?php  
 session_start();
 include('../snippets/connection.php');
-if(strpos($host_target_addr, "localhost/")||strpos($host_target_addr, "wamp")){
+$activepage_type="admin";
+$activepage=0;
+if(isset($host_admin_cron)&&$host_admin_cron=="on"){
   	// for local server
 	include('../snippets/cronit.php');
 }
@@ -104,55 +106,8 @@ if ($res === TRUE) {
 
 
 ?>
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8">
-    <title>Admin Dashboard</title>
-    <meta content='width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no' name='viewport'>
-    <!-- <link href="../stylesheets/napstandmain.css" rel="stylesheet" type="text/css" /> -->
-    <!-- CSS to style the file input field as button and adjust the Bootstrap progress bars -->
-	<link rel="stylesheet" href="../stylesheets/jquery.fileupload.css"/>
-	<link rel="stylesheet" href="../stylesheets/jquery.fileupload-ui.css"/>
-	<!-- CSS adjustments for browsers with JavaScript disabled -->
-	<noscript><link rel="stylesheet" href="../stylesheets/jquery.fileupload-noscript.css"></noscript>
-	<noscript><link rel="stylesheet" href="../stylesheets/jquery.fileupload-ui-noscript.css"></noscript>
-    <!-- Bootstrap 3.3.2 -->
-    <link href="../bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
-	<link async href="<?php echo $host_addr;?>stylesheets/lightbox.css" rel="stylesheet"/>
-	<!-- daterange picker -->
-	<link href="../plugins/daterangepicker/daterangepicker-bs3.css" rel="stylesheet" type="text/css" />
-	<!-- daterange picker -->
-	<link href="../plugins/datepicker/datepicker3.css" rel="stylesheet" type="text/css" />
-	<!-- Bootstrap time Picker -->
-	<link href="../plugins/timepicker/bootstrap-timepicker.min.css" rel="stylesheet"/>
-	<!-- Bootstrap Date-time Picker -->
-	
-    <!-- Font Awesome Icons -->
-    <link href="../font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css" />
-    <!-- Ionicons -->
-    <link href="../ionicons/css/ionicons.min.css" rel="stylesheet" type="text/css" />
-    <!-- Select2 (Selcetion customizer) -->
-    <link href='../plugins/select2/dist/css/select2.min.css' rel="stylesheet" type="text/css"/>
-    <link href='../plugins/select2/dist/css/select2-bootstrap.min.css' rel="stylesheet" type="text/css"/>
-    <!-- Bootstrap datetimepicker -->
-    <link href='../plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css' rel="stylesheet" type="text/css"/>
-    <!-- Jquery Sortable -->
-    <link href='../plugins/jquery-sortable/css/jquery-sortable.css' rel="stylesheet" type="text/css"/>
-    <!-- Theme style -->
-    <link href="../dist/css/AdminLTE.min.css" rel="stylesheet" type="text/css" />
-    <!-- AdminLTE Skins. Choose a skin from the css/skins 
-         folder instead of downloading all of them to reduce the load. -->
-    <link href="../dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
-    <link rel="shortcut icon" href="../favicon.ico"/>
+<?php include('../snippets/headcontentadmin.php');?>
 
-    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-        <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-    <![endif]-->
-  </head>
   <body class="skin-yellow">
     <!-- Site wrapper -->
     <div class="wrapper">
@@ -495,85 +450,7 @@ if ($res === TRUE) {
           <!-- form box end -->
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
-      <!-- General Modal display section -->
-      <div id="mainPageModal" class="modal fade" data-backdrop="false" data-show="true" data-role="dialog">
-      	<div class="modal-dialog">
-      		<div class="modal-content">
-		      	<div class="modal-header">
-					<button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>
-					<h4 class="modal-title">Message</h4>
-		        </div>
-		      	<div class="modal-body">
-
-		      	</div>
-		      	<div class="modal-footer">
-		      		<button type="button" class="btn btn-success" data-dismiss="modal">Close</button>
-		      	</div>
-		    </div>
-      	</div>
-      </div>
-      <!-- end modal display -->
-      <footer class="main-footer">
-        <div class="pull-right hidden-xs">
-          <b>Administrator Central.</b>
-        </div>
-        <strong>Copyright &copy; 2014-<?php echo date('Y');?> <a href="index.php">Napstand</a>.</strong> All rights reserved. Developed by Okebukola Olagoke.
-      </footer>
-    </div><!-- ../wrapper -->
-
-    <!-- jQuery 2.1.3 -->
-    <script src="../plugins/jQuery/jQuery-2.1.3.min.js"></script>
-    <!-- Bootstrap 3.3.2 JS -->
-    <script src="../bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-	<script src="../scripts/js/jquery.jplayer.min.js"></script>
-	<script src="../scripts/js/vendor/jquery.ui.widget.js"></script>
-    <script src="../scripts/mylib.js" type="text/javascript"></script>
-    <script src="../scripts/formchecker.js" type="text/javascript"></script>
-    <!-- Select2 (Selcetion customizer) -->
-    <script src='../plugins/select2/dist/js/select2.full.min.js'></script>
-    <!-- Bootpag (oostrap paginator) -->
-    <script src='../plugins/bootpag/jquery.bootpag.min.js'></script>
-    <!-- SlimScroll -->
-    <script src="../plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
-    <!-- FastClick -->
-    <script src='../plugins/fastclick/fastclick.min.js'></script>
-    <!-- InputMask -->
-    <script src="../plugins/input-mask/jquery.inputmask.js" type="text/javascript"></script>
-    <script src="../plugins/input-mask/jquery.inputmask.extensions.js" type="text/javascript"></script>
-    <!-- date-range-picker -->
-    <script src="../plugins/input-mask/jquery.inputmask.date.extensions.js" type="text/javascript"></script>
-    <script src="../plugins/daterangepicker/daterangepicker.js" type="text/javascript"></script>
-    <!-- date-picker -->
-    <script src="../plugins/datepicker/bootstrap-datepicker.js" type="text/javascript"></script>
-    <!-- bootstrap time picker -->
-    <script src="../plugins/timepicker/bootstrap-timepicker.min.js" type="text/javascript"></script>
-    <!-- Moment js -->
-    <script src="../plugins/moment/moment.js" type="text/javascript"></script>
-    <!-- bootstrap Date-time picker -->
-    <script src="../plugins/bootstrap-datetimepicker/bootstrap-datetimepicker.js" type="text/javascript"></script>
-    <!-- iCheck 1.0.1 -->
-    <script src="../plugins/iCheck/icheck.min.js" type="text/javascript"></script>
-
-    <script src="../plugins/knob/jquery.knob.js" type="text/javascript"></script>
-    <!-- Sparkline -->
-    <script src="../plugins/sparkline/jquery.sparkline.min.js" type="text/javascript"></script>
-    <!-- Jquery Sortable  -->
-    <script src="../plugins/jquery-sortable/js/jquery-sortable.js" type="text/javascript"></script>
-    <!-- RubaXa Sortable -->
-	<script src="../plugins/rubaxa-sortable/js/Sortable.js"></script>
-    
-	
-	<!-- The XDomainRequest Transport is included for cross-domain file deletion for IE 8 and IE 9 -->
-	<!--[if (gte IE 8)&(lt IE 10)]>
-	<script src="js/cors/jquery.xdr-transport.js"></script>
-	<![endif]-->
-	<!-- end -->
-    <!-- AdminLTE App -->
-    <script src="../dist/js/app.js" type="text/javascript"></script>
-    <script src="../scripts/lightbox.js" type="text/javascript"></script>
-    <script src="../scripts/napstandadmin.js" type="text/javascript"></script>
-	<script language="javascript" type="text/javascript" src="../scripts/js/tinymce/jquery.tinymce.min.js"></script>
-    <script language="javascript" type="text/javascript" src="../scripts/js/tinymce/tinymce.min.js"></script>
-    <script language="javascript" type="text/javascript" src="../scripts/js/tinymce/basic_config.js"></script>
+      <!-- wrapper closing div present in footer admin file -->
+	  <?php include('../snippets/footeradmin.php');?>
   </body>
 </html>

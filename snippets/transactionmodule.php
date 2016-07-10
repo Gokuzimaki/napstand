@@ -69,13 +69,13 @@
 		$username=$row['username'];
 		$userid=$row['userid'];
 		$usertype=$row['usertype'];
-		if($userid>0){
+		if($userid>0&&($usertype=="users"||$usertype=="appuser"||$usertype=="user"||$usertype=="client")){
 			if (function_exists('getSingleUserPlain')) {
 				# code...
 				$outuser=getSingleUserPlain($userid);
 				$fullname=$outuser['nameout'];
 				$email=$outuser['email'];
-				$phoneout=array("phoneone"=>$outuser['phonenone'],"phonetwo"=>$outuser['phonetwo'],"phonethree"=>$outuser['phonethree']);
+				$phoneout=array("phoneone"=>$outuser['phoneone'],"phonetwo"=>$outuser['phonetwo'],"phonethree"=>$outuser['phonethree']);
 			}
 		}
 		$row['coursegroupsout']=''; //holds the email portion of the entry
@@ -270,7 +270,7 @@
 							'email' => "$email",
 							'phonenumber' => "$phonenumber",
 							'amountpaid' => "$amountpaid",
-							'stublink' => "$stublink",
+							'stublink' => $row['stublink'],
 							'fileid' => "$fileid",
 							'email' => "$email",
 							'coursedata' => $coursedata,
@@ -279,8 +279,8 @@
 							'transactiontime' => "$transactiontime",
 							'downloads' => "$downloads",
 							'startdate' => "$startdate",
-							'enddate' => "$enddate",
-							'status' => "$status",
+							'enddate' => $row['enddate'],
+							'status' => $row['status'],
 						);
 
 		return $row;
@@ -339,13 +339,24 @@
 			}else if($type=="exportallcourses"){
 				$limit="";
 			}else if($type=="appuserpaymentstatus"){
-				$joiner="AND userid='$appuserid' AND usertype='users' AND contentid='$contentid' 
+				$joiner="AND userid='$appuserid' AND usertype='users' AND contentid='$contentid'
+						 AND contenttype='contententries'  
+						 AND (lower(`voguestatus`)='approved' 
+						 OR lower(`voguestatus`)='success' 
+						 OR lower(`voguestatus`)='vogue successful' 
+						 OR lower(`voguestatus`)='completed')";
+				$joiner2="WHERE userid='$appuserid' AND usertype='users' AND contentid='$contentid'
+						 AND contenttype='contententries'  
 						 AND (lower(`voguestatus`)='approved' 
 						 OR lower(`voguestatus`)='success' 
 						 OR lower(`voguestatus`)='vogue successful' 
 						 OR lower(`voguestatus`)='completed')";
 			}else if($type=="appusertransactions"){
 				$joiner="AND userid='$appuserid' AND usertype='users'"; 
+				$joiner2="WHERE userid='$appuserid' AND usertype='users'"; 
+			}else if($type=="verifytransactionid"){
+				$joiner="AND voguerefid='$contentid' AND status='active'"; 
+				$joiner2="WHERE voguerefid='$contentid' AND status='active'"; 
 			}			
 		}
 		if($viewer=="admin"){
@@ -387,9 +398,9 @@
 		$vieweditstyle='style="display:none;"';
 		$catdata=array();
 		if($numrows>0){
-		$adminoutput="";
-		$adminoutputtwo="";
-		$vieweroutput="";
+			$adminoutput="";
+			$adminoutputtwo="";
+			$vieweroutput="";
 			while($row=mysql_fetch_assoc($run)){
 				$outs=getSingleTransaction($row['id']);
 				if($row['transactiontype']=="course"){

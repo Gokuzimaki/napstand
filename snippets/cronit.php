@@ -1,5 +1,5 @@
 <?php
-	if(isset($host_target_addr) && (strpos($host_target_addr, "localhost/")||strpos($host_target_addr, "wamp"))){
+	if(isset($host_target_addr) && (strpos($host_target_addr, "localhost/")||strpos($host_target_addr, "wamp")||strpos($host_target_addr, "ngrok.io"))){
 	  	// for local server, connection file will already be included
 	}else{
 		include('connection.php');
@@ -24,4 +24,12 @@
 		$queryuserd="DELETE email1 FROM recruits email1, recruits email2 WHERE email1.id < email2.id AND email1.email = email2.email";
 		$runuserd=mysql_query($queryuserd)or die(mysql_error()." Real number: ".__LINE__);		
 	}
+
+	//change the publish status of scheduled content entries
+	if(mysql_num_rows(mysql_query("SHOW TABLES LIKE 'contententries'"))==1) {
+		$query1="UPDATE contententries SET releasedate='$fullperiod' AND publishstatus='published' WHERE (scheduledate<'$fullperiod' OR scheduledate='$fullperiod' or scheduledate='0000-00-00 00:00:00') AND publishstatus='scheduled'";
+		$run1=mysql_query($query1)or die(mysql_error()." Line".__LINE__);
+		// echo "cron here";
+	}
+		// echo "cron there";
 ?>

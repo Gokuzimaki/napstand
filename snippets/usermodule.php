@@ -123,6 +123,7 @@
 				$nameout=$fullname;
 			}
 		}
+		$row['numrows']=$numrows;
 		$row['nameout']=$nameout;
 		$row['originalimage']=$originalimage;
 		$row['medimage']=$medimage;

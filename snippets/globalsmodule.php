@@ -8,6 +8,8 @@
 			// $host_title_name,
 			// $host_admin_title_name,
 			$host_default_poster,
-			$host_default_cover_image//,
+			$host_default_cover_image,
+			$host_sessionvar_prefix,
+			$host_sessionvar_suffix
 			/*$host_favicon*/;
 ?>
