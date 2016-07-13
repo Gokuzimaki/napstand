@@ -58,6 +58,19 @@ if($displaytype==""){
 		// notificationtable entry
 		// $notificationdetails="Logged into napstand";
 		if($status=="active"){
+			// get previous login information
+			$orderfield[]='userid';
+			$orderfield[]='usertype';
+			$orderfield[]='action';
+			$ordervalue[]=$userid;
+			$ordervalue[]='users';
+			$ordervalue[]='login';
+			$order=" ORDER BY id DESC";
+			$limit=" LIMIT 0,1";
+			$outlogprev=getNotfications('',$orderfield,$ordervalue,$order,$limit);
+
+			// obtain last login date
+			$entrydateone=$outlogprev['entrydate'];
 			createNotification($userid,"users","login",$msg);
 	 		echo json_encode(array("success"=>"true","msg"=>"$msg","userid"=>"$userid","firstname"=>"$firstname","lastname"=>"$lastname","middlename"=>"$middlename","status"=>"$status"));
 		}else{

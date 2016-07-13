@@ -13,7 +13,7 @@
 	*viewlevelid - [0,.....n] 0 represents the Super user only, 1 represents any other admin account
 	*viewleveltype - represents the level of viewer that can see the notification
 	*/
-	function createNotification($userid,$usertype,$action,$actiondetails,$actionid="",$actiontype="",$viewlevelid="",$viewleveltype=""){
+	function createNotification($userid,$usertype,$action,$actiondetails,$actionid="",$actiontype="",$viewlevelid="",$viewleveltype="",$actionhash=""){
 		include('globalsmodule.php');
 
 	    $today=date("Y-m-d H:i:s");
@@ -26,16 +26,23 @@
         $mediarun=mysql_query($mediaquery)or die(mysql_error()." Line ".__LINE__);
 		// return $nextnot;
 	};
-	function getNotifications($tablename,$orderfield,$ordervalue){
+
+	function getNotifications($tablename,$orderfield,$ordervalue,$order="",$limit="",$concat=""){
 		include('globalsmodule.php');
 		$row=array();
 		$numrows=0;
+		$tablename==""?$tablename="notifications":$tablename=$tablename;
 		if($tablename!==""&&$orderfield!==""&&$ordervalue!==""){
 			if(is_array($orderfield) && is_array($ordervalue)&&count($orderfield)==count($ordervalue)){
 				$orderfieldvals=count($orderfield)-1;
 				for($i=0;$i<=$orderfieldvals;$i++){
 					if($i!==$orderfieldvals){
-						$ordervalues.="".$orderfield[$i]."='".$ordervalue[$i]."' AND ";
+						if($concat==""){
+							$curconcat="AND";
+						}else{
+							$curconcat=is_array($concat)?$concat[$i]:$concat;
+						}
+						$ordervalues.="".$orderfield[$i]."='".$ordervalue[$i]."' ".$curconcat." ";
 					}else{
 						$ordervalues.=" ".$orderfield[$i]."='".$ordervalue[$i]."'";
 					}
@@ -45,8 +52,18 @@
 			  	$query="SELECT * FROM $tablename WHERE $orderfield=$ordervalue";
 			}
 			//// // echo$query;
-			$run=mysql_query($query)or die(mysql_error()." Real number:".__LINE__." $query<br>");
+			$run=mysql_query($query.$order.$limit)or die(mysql_error()." Real number:".__LINE__." $query<br>");
 			$numrows=mysql_fetch_assoc($run);
+			$prefetch=array();
+			if($numrows>0){
+				if($numrows==1){
+					$row=mysql_fetch_assoc($run);
+				}else{
+					while($prefetch=mysql_fetch_assoc($run)){
+						$row[]=$prefetch;
+					}
+				}
+			}
 		}else{
 
 			die('cant continue with missing ordervalues data'); 

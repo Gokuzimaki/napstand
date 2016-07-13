@@ -1,6 +1,6 @@
 <?php
     include('headcontentparentdefault.php');
-
+    echo $mpage
 ?>
 <!DOCTYPE html>
 <html>

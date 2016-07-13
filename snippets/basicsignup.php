@@ -336,7 +336,7 @@ header('location:../admin/adminindex.php');
     if(isset($_POST['retid'])){
       $userid=$_POST['retid'];
       $msg='Successfully created a parent content';
-      createNotification($userid,"users","logout",$msg,$curid,'parentcontent',0);
+      createNotification($userid,"users","parentcontent",$msg,$curid,'parentcontent',0);
       $donothing="";
       $userdata=getSingleUserPlain($_POST['retid']);
       $userdata['usertype']=="user"?header('location:../userdashboard.php'):
@@ -344,6 +344,9 @@ header('location:../admin/adminindex.php');
         $donothing);
       // echo "in here";
     }else{
+      $logpart=md5($host_addr);
+      $userid=$_SESSION['aduid'.$logpart.'']?$_SESSION['aduid'.$logpart.''];
+      createNotification($userid,"admin","parentcontent",$msg,$curid,'parentcontent',0);
       header('location:../admin/adminindex.php?compid=0&type=parentcontent&v=admin&error=true');
       
     }
@@ -678,8 +681,8 @@ header('location:../admin/adminindex.php');
     $run=mysql_query($query)or die(mysql_error()." line ".__LINE__); 
     if(isset($_POST['retid'])){
       $userid=$_POST['retid'];
-      $msg='Successfully created a parent content';
-      createNotification($userid,"users","logout",$msg,$curid,'contententry',0);
+      $msg='Successfully created a parent content entry';
+      createNotification($userid,"users","contententry",$msg,$curid,'contententries',0);
       $donothing="";
       $userdata=getSingleUserPlain($_POST['retid']);
       $userdata['usertype']=="user"?header('location:../userdashboard.php'):
@@ -1497,7 +1500,8 @@ $run=mysql_query($query)or die(mysql_error()." Line 58");
 
     
     // create the users content folder
-    $query="INSERT INTO users(usertype,fullname,firstname,middlename,lastname,uhash,email,pword,regdate)
+    $query="INSERT INTO users(usertype,fullname,firstname,middlename,lastname,uhash,
+      email,pword,regdate)
     VALUES('appuser','$fullname','$firstname','$middlename','$lastname','$uhash',
       '$email','$password',CURRENT_DATE())";
     // echo $query." ".__LINE__;

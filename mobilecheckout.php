@@ -251,6 +251,6 @@
             ?>
           </section><!-- /.content -->
       </div>
-      <?php include('./snippets/footeradmin.php');?>    
+      <?php //include('./snippets/footeradmin.php');?>    
   </body>
 </html>
