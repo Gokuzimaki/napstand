@@ -352,6 +352,12 @@ if ($res === TRUE) {
 	              </div>
 	            </div>
 	            <div class="box-body">
+	            	<!-- <select class="form-control" name="testdropdown">
+            			<option value="some text" data-image="../images/default.gif">A val one</option>
+            			<option value="no text" data-image="../images/facebookshareimg.jpg">A val two</option>
+            			<option value="great text" data-image="../images/imgdisp.jpg">A val three</option>
+            			<option value="made text" data-image="../images/default.gif">A val four</option>
+            		</select> -->
 	            	<?php
 	            		/*$str='./images/fname.jpeg';
 	            		$exts='jpg|.jpg|jpeg|.jpeg|png|.png|.svg|svg|gif|.gif';
@@ -451,6 +457,11 @@ if ($res === TRUE) {
         </section><!-- /.content -->
       </div><!-- /.content-wrapper -->
       <!-- wrapper closing div present in footer admin file -->
-	  <?php include('../snippets/footeradmin.php');?>
+	  <?php include('../snippets/themescriptsdumpadmin.php');?>
+	  	<script>
+			$(document).ready(function(){
+				$('select[name=testdropdown]').msDropdown();
+			});
+		</script>
   </body>
 </html>

@@ -15,6 +15,8 @@ $host_email_addr="admin@napstand.com";
 $host_info_email_addr="info@napstand.com";
 $host_support_email_addr="support@napstand.com";
 $host_phonenumbers="+234 807 207 6302";
+// test variable for holding server url type values
+$host_test="localhost";
 //set to true on upload emails
 $host_email_send=false;
 $hostname_pvmart = "localhost";
@@ -39,17 +41,17 @@ if(strpos($host_target_addr, "localhost")||strpos($host_target_addr, "wamp")){
   $host_admin_cron="on";
   $host_addr="http://localhost/napstand/";
 }else if(strpos($host_target_addr, "ngrok.io/napstand")){
-  
+  $host_test="ngrok1";
   $host_addr=$host_target_addr!=="http://"&&$host_target_addr!=="https://"?$host_target_addr."":"http://napstand.com/";
   header("Access-Control-Allow-Origin: *");
 
 }else if(strpos($host_target_addr, "ngrok.io")){
-  
+  $host_test="ngrok2";
   $host_addr=$host_target_addr!=="http://"&&$host_target_addr!=="https://"?$host_target_addr."napstand/":"http://napstand.com/";
   header("Access-Control-Allow-Origin: *");
 
 }else if(strpos($host_target_addr, "orgfree.com")){
-  
+  $host_test="orgfree"; 
   $host_addr=$host_target_addr!=="http://"&&$host_target_addr!=="https://"?$host_target_addr."napstand/":"http://napstand.com/";
   $host_email_send=true;
   $db="1170406";

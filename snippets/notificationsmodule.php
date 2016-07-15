@@ -13,16 +13,18 @@
 	*viewlevelid - [0,.....n] 0 represents the Super user only, 1 represents any other admin account
 	*viewleveltype - represents the level of viewer that can see the notification
 	*/
-	function createNotification($userid,$usertype,$action,$actiondetails,$actionid="",$actiontype="",$viewlevelid="",$viewleveltype="",$actionhash=""){
+	function createNotification($userid,$usertype,$action,$actiondetails,$actionid="",$actiontype="",$actionhash="",$viewlevelid="",$viewleveltype=""){
 		include('globalsmodule.php');
-
+		// echo $actionhash;
 	    $today=date("Y-m-d H:i:s");
 	    $nextnot=getNextId('notifications');
         $mediaquery="INSERT INTO notifications
-        (userid,usertype,action,actiondetails,actionid,actiontype,viewlevelid,viewleveltype,entrydate)
+        (userid,usertype,action,actiondetails,actionid,actiontype,actionhash,viewlevelid,
+         viewleveltype,entrydate)
         VALUES
-        ('$userid','$usertype','$action','$actiondetails','$actionid','$actiontype','$viewlevelid','$viewleveltype','$today')";
-
+        ('$userid','$usertype','$action','$actiondetails','$actionid','$actiontype',
+         '$actionhash','$viewlevelid','$viewleveltype','$today')";
+        // echo $mediaquery;
         $mediarun=mysql_query($mediaquery)or die(mysql_error()." Line ".__LINE__);
 		// return $nextnot;
 	};
@@ -32,8 +34,10 @@
 		$row=array();
 		$numrows=0;
 		$tablename==""?$tablename="notifications":$tablename=$tablename;
+		$ordervalues="id=0";
 		if($tablename!==""&&$orderfield!==""&&$ordervalue!==""){
 			if(is_array($orderfield) && is_array($ordervalue)&&count($orderfield)==count($ordervalue)){
+				$ordervalues="";
 				$orderfieldvals=count($orderfield)-1;
 				for($i=0;$i<=$orderfieldvals;$i++){
 					if($i!==$orderfieldvals){
@@ -41,6 +45,7 @@
 							$curconcat="AND";
 						}else{
 							$curconcat=is_array($concat)?$concat[$i]:$concat;
+
 						}
 						$ordervalues.="".$orderfield[$i]."='".$ordervalue[$i]."' ".$curconcat." ";
 					}else{
@@ -51,13 +56,14 @@
 			}else{
 			  	$query="SELECT * FROM $tablename WHERE $orderfield=$ordervalue";
 			}
-			//// // echo$query;
+			// echo $query.$order.$limit;
 			$run=mysql_query($query.$order.$limit)or die(mysql_error()." Real number:".__LINE__." $query<br>");
-			$numrows=mysql_fetch_assoc($run);
+			$numrows=mysql_num_rows($run);
 			$prefetch=array();
 			if($numrows>0){
 				if($numrows==1){
 					$row=mysql_fetch_assoc($run);
+					// echo "in here";
 				}else{
 					while($prefetch=mysql_fetch_assoc($run)){
 						$row[]=$prefetch;

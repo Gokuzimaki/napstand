@@ -336,7 +336,7 @@ header('location:../admin/adminindex.php');
     if(isset($_POST['retid'])){
       $userid=$_POST['retid'];
       $msg='Successfully created a parent content';
-      createNotification($userid,"users","parentcontent",$msg,$curid,'parentcontent',0);
+      createNotification($userid,"users","parentcontent",$msg,$curid,'parentcontent',"",0);
       $donothing="";
       $userdata=getSingleUserPlain($_POST['retid']);
       $userdata['usertype']=="user"?header('location:../userdashboard.php'):
@@ -346,7 +346,7 @@ header('location:../admin/adminindex.php');
     }else{
       $logpart=md5($host_addr);
       $userid=$_SESSION['aduid'.$logpart.'']?$_SESSION['aduid'.$logpart.''];
-      createNotification($userid,"admin","parentcontent",$msg,$curid,'parentcontent',0);
+      createNotification($userid,"admin","parentcontent",$msg,$curid,'parentcontent',"",0);
       header('location:../admin/adminindex.php?compid=0&type=parentcontent&v=admin&error=true');
       
     }
@@ -682,7 +682,7 @@ header('location:../admin/adminindex.php');
     if(isset($_POST['retid'])){
       $userid=$_POST['retid'];
       $msg='Successfully created a parent content entry';
-      createNotification($userid,"users","contententry",$msg,$curid,'contententries',0);
+      createNotification($userid,"users","contententry",$msg,$curid,'contententries',"",0);
       $donothing="";
       $userdata=getSingleUserPlain($_POST['retid']);
       $userdata['usertype']=="user"?header('location:../userdashboard.php'):

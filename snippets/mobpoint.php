@@ -1,11 +1,16 @@
 <?php
 include('connection.php');
+/*if(isset()){
+
+}*/
 // header("Access-Control-Allow-Origin: *");
 session_start();
 
 $displaytype="";
 $test="";
 $extraval="admin";
+$todaynow=date("Y-m-d H:i:s");
+
 if(isset($_GET['displaytype'])){
 	$displaytype=$_GET['displaytype'];
 }
@@ -58,24 +63,86 @@ if($displaytype==""){
 		// notificationtable entry
 		// $notificationdetails="Logged into napstand";
 		if($status=="active"){
+			// get a login hash for this user
+			$hashvar=$userid."_".date("Y-m-d H:i:s");
+			$hashvar=md5($hashvar);
 			// get previous login information
-			$orderfield[]='userid';
-			$orderfield[]='usertype';
-			$orderfield[]='action';
-			$ordervalue[]=$userid;
-			$ordervalue[]='users';
-			$ordervalue[]='login';
+			$orderfield[0]='userid';
+			$orderfield[1]='usertype';
+			$orderfield[2]='action';
+			$ordervalue[0]=$userid;
+			$ordervalue[1]='users';
+			$ordervalue[2]='login';
 			$order=" ORDER BY id DESC";
 			$limit=" LIMIT 0,1";
-			$outlogprev=getNotfications('',$orderfield,$ordervalue,$order,$limit);
+			$outlogprev=getNotifications('notifications',$orderfield,$ordervalue,$order,$limit);
+			$lastloginid=0;
+			$lastloghash="";
+			// obtain last login id
+			if($outlogprev['numrows']>0){
+				// $lastloginid=$outlogprev['numrows']>1?$outlogprev[0]['id']:$outlogprev['id'];
+				$lastloginid=$outlogprev['id'];
+				// get last loginhash
+				$lastloghash=$outlogprev['actionhash'];
+			}
+			// get log out information
+			$orderfield[0]='userid';
+			$orderfield[1]='usertype';
+			$orderfield[2]='action';
+			$ordervalue[0]=$userid;
+			$ordervalue[1]='users';
+			$ordervalue[2]='logout';
+			$order=" ORDER BY id DESC";
+			$limit=" LIMIT 0,1";
+			$outlogprev2=getNotifications('',$orderfield,$ordervalue,$order,$limit);
+			$lastlogoutid=0;
+			// obtain last logout date
+			if($outlogprev2['numrows']>0){
+				// $lastlogoutid=$outlogprev2['numrows']>1?$outlogprev2[0]['id']:$outlogprev2['id'];				
+				$lastlogoutid=$outlogprev2['id'];				
+			}
+			if(($lastlogoutid>$lastloginid)||($lastloginid>$lastlogoutid&&$lastloghash=="")){
+				// this means the current user is on a device that hasn't been logged in
+				// or they are first timers
+				createNotification($userid,"users","login","$msg","","","$hashvar");
+	 			echo json_encode(array(	"success"=>"true",
+	 									"msg"=>"$msg",
+	 									"userid"=>"$userid",
+	 									"firstname"=>"$firstname",
+	 									"lastname"=>"$lastname",
+	 									"middlename"=>"$middlename",
+	 									"devicehash"=>"$hashvar",
+	 									"status"=>"$status"));
+			}else{
+				$devicehash="";
+				if(isset($_GET['devicehash'])){
+					$devicehash=$_GET['devicehash'];
+				}
+				if(isset($_POST['devicehash'])){
+					$devicehash=$_POST['devicehash'];
+				}
+				// $devicehash="b395107a236cd564a1ce82ef25f642b9";
+				if($devicehash!==""&&$devicehash==$lastloghash){
+					genericSingleUpdate('notifications',"entrydate","$todaynow",'id',"$lastloginid");
+					// createNotification($userid,"users","login",$msg,"","","$hashvar");
+		 			echo json_encode(array(	"success"=>"true","msg"=>"$msg","userid"=>"$userid","firstname"=>"$firstname","lastname"=>"$lastname","middlename"=>"$middlename","devicehash"=>"$lastloghash","status"=>"$status"));					
+				}else{
+					$msg="Login Failure, Account is still active on a device";
+					// $curhashvar=$outlogprev['numrows']>1?$outlogprev[0]['actionhash']:$outlogprev['actionhash'];
+					$curhashvar=$outlogprev['actionhash'];
+		 			echo json_encode(array("success"=>"false","msg"=>"$msg","userid"=>"$userid","firstname"=>"$firstname","lastname"=>"$lastname","middlename"=>"$middlename","devicehash"=>"","status"=>"$status"));
 
-			// obtain last login date
-			$entrydateone=$outlogprev['entrydate'];
-			createNotification($userid,"users","login",$msg);
-	 		echo json_encode(array("success"=>"true","msg"=>"$msg","userid"=>"$userid","firstname"=>"$firstname","lastname"=>"$lastname","middlename"=>"$middlename","status"=>"$status"));
+				}
+
+			}
+			if($test!==""){
+
+			}
 		}else{
 			$msg="Account has been disabled";
-			createNotification($userid,"users","login",$msg);
+			if($test==""){
+				createNotification($userid,"users","loginfailure",$msg);
+ 			}
  			echo json_encode(array("success"=>"false","msg"=>"$msg","userid"=>"","firstname"=>"","middlename"=>"","lastname"=>"","status"=>""));
 		}
 	}else{

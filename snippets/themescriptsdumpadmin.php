@@ -8,8 +8,10 @@
     <script src="<?php echo $host_addr;?>scripts/formchecker.js" type="text/javascript"></script>
     <!-- Select2 (Selcetion customizer) -->
     <script src='<?php echo $host_addr;?>plugins/select2/dist/js/select2.full.min.js'></script>
-    <!-- Bootpag (oostrap paginator) -->
+    <!-- Bootpag (bootstrap paginator) -->
     <script src='<?php echo $host_addr;?>plugins/bootpag/jquery.bootpag.min.js'></script>
+    <!-- msDropDown (Selection dropdown customizer) -->
+    <script src='<?php echo $host_addr;?>plugins/msdropdown/js/jquery.dd.min.js'></script>
     <!-- SlimScroll -->
     <script src="<?php echo $host_addr;?>plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
     <!-- FastClick -->

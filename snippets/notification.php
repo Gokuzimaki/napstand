@@ -14,7 +14,7 @@ if(isset($_POST['transaction_id'])){
 	$merchant_id="2528-0026209";
 	$demout="";
 	if(isset($host_vogue_merchantid)&&$host_vogue_merchantid=="demo"){
-		$demout="demo=true";
+		$demout="&demo=true";
 	}
 	$tid=$_POST['transaction_id'];
 	//get the full transaction details as an json from voguepay

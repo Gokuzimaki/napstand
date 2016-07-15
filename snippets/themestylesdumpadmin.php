@@ -23,6 +23,8 @@
     <!-- Select2 (Selcetion customizer) -->
     <link href='<?php echo $host_addr;?>plugins/select2/dist/css/select2.min.css' rel="stylesheet" type="text/css"/>
     <link href='<?php echo $host_addr;?>plugins/select2/dist/css/select2-bootstrap.min.css' rel="stylesheet" type="text/css"/>
+    <!-- msDropDown (Selcetion customizer) -->
+    <link href='<?php echo $host_addr;?>plugins/msdropdown/css/dd.css' rel="stylesheet" type="text/css"/>
     <!-- Bootstrap datetimepicker -->
     <link href='<?php echo $host_addr;?>plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css' rel="stylesheet" type="text/css"/>
     <!-- Jquery Sortable -->
@@ -32,7 +34,6 @@
     <!-- AdminLTE Skins. Choose a skin from the css/skins 
          folder instead of downloading all of them to reduce the load. -->
     <link href="<?php echo $host_addr;?>dist/css/skins/_all-skins.min.css" rel="stylesheet" type="text/css" />
-    <link rel="shortcut icon" href="<?php echo $host_addr;?>favicon.ico"/>
 
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
