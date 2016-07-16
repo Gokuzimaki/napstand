@@ -1236,7 +1236,7 @@
 					</div>
 	            </div>
 			';
-			$row['selectionoutput']='<option value="'.$row['id'].'" data-image="'.$coverpicmedsize.'">'.$row['title'].'</option>';
+			$row['selectionoutput']='<option value="'.$row['id'].'" data-image="'.$coverpicthumb.'">'.$row['title'].'</option>';
 			$row['adminoutput']='
 				<tr data-id="'.$id.'">
 					<td class="tdimg"><img src="'.$coverpicmedsize.'"/></td><td>'.$title.'</td><td>'.$contenttype.'</td><td>'.$publishdata.'</td><td>'.$scheduledate.'</td><td>'.$releasedate.'</td><td>'.$status.'</td>

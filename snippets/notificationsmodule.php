@@ -78,7 +78,6 @@
 		$row['numrows']=$numrows;
 
 		return $row;
-
 	}
 
 ?>
