@@ -101,7 +101,8 @@ if($displaytype==""){
 				// $lastlogoutid=$outlogprev2['numrows']>1?$outlogprev2[0]['id']:$outlogprev2['id'];				
 				$lastlogoutid=$outlogprev2['id'];				
 			}
-			if(($lastlogoutid>$lastloginid)||($lastloginid>$lastlogoutid&&$lastloghash=="")){
+			// echo "lastlogin:$lastloginid  lastlogout:$lastlogoutid <br>";
+			if(($lastlogoutid==0&&$lastloginid==0)||($lastlogoutid>$lastloginid)||($lastloginid>$lastlogoutid&&$lastloghash=="")){
 				// this means the current user is on a device that hasn't been logged in
 				// or they are first timers
 				createNotification($userid,"users","login","$msg","","","$hashvar");
@@ -129,7 +130,10 @@ if($displaytype==""){
 				}else{
 					$msg="Login Failure, Account is still active on a device";
 					// $curhashvar=$outlogprev['numrows']>1?$outlogprev[0]['actionhash']:$outlogprev['actionhash'];
-					$curhashvar=$outlogprev['actionhash'];
+					// $curhashvar=$outlogprev['actionhash'];
+					if($test==""){
+						// createNotification($userid,"users","loginfailure",$msg);
+		 			}
 		 			echo json_encode(array("success"=>"false","msg"=>"$msg","userid"=>"$userid","firstname"=>"$firstname","lastname"=>"$lastname","middlename"=>"$middlename","devicehash"=>"","status"=>"$status"));
 
 				}
@@ -140,14 +144,12 @@ if($displaytype==""){
 			}
 		}else{
 			$msg="Account has been disabled";
-			if($test==""){
-				createNotification($userid,"users","loginfailure",$msg);
- 			}
+
  			echo json_encode(array("success"=>"false","msg"=>"$msg","userid"=>"","firstname"=>"","middlename"=>"","lastname"=>"","status"=>""));
 		}
 	}else{
 		$msg="Log in failure";
-		createNotification($userid,"users","login",$msg);
+		// createNotification($userid,"users","login",$msg);
  		echo json_encode(array("success"=>"false","msg"=>"$msg","userid"=>"","firstname"=>"","middlename"=>"","lastname"=>"","status"=>""));
 	}
 }else if ($displaytype=="fetchcategories") {
