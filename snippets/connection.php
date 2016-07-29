@@ -1109,6 +1109,58 @@ function fileSizeConvert($bytes,$units=""){
   }
   return $result;
 }
+
+function numberSizeConvert($val,$units=""){
+  $val = floatval($val);
+  $arBytes = array(
+      0 => array(
+          "UNIT" => "t",
+          "VALUE" => pow(1000, 4)
+      ),
+      1 => array(
+          "UNIT" => "b",
+          "VALUE" => pow(1000, 3)
+      ),
+      2 => array(
+          "UNIT" => "m",
+          "VALUE" => pow(1000, 2)
+      ),
+      3 => array(
+          "UNIT" => "K",
+          "VALUE" => 1000
+      )
+  );
+
+
+  foreach($arBytes as $arItem)
+  {   
+    if($units==""){
+      // test the value in thousands against the prestored ones in the array
+      // if a match is found then the value range is valid for that unit
+      if($val >= $arItem["VALUE"]){
+          $result = $val / $arItem["VALUE"];
+          $result = strval(round($result, 2))." ".$arItem["UNIT"];
+          break;
+      }else{
+          $result=0;
+      }
+    }else{
+      // check and validate if the specified unit required is available 
+      // among the storeds units of the array.
+      if($units == $arItem["UNIT"]){
+          $result = $val / $arItem["VALUE"];
+          $result = strval(round($result, 2))." ".$arItem["UNIT"];
+          break;
+      }else{
+          $result=0;
+      }
+    }
+  }
+  if($result==0){
+    $result=$val;
+  }
+  return $result;
+}
 function get_include_contents($filename,$initvars="",$initvals="") {
     include("globalsmodule.php");
     if($initvars!==""&&!is_array($initvars)){

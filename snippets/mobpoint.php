@@ -642,6 +642,72 @@ if($displaytype==""){
 			echo $scriptout;
 		}	
 	}
+}else if ($displaytype=="editappuser") {
+	# code...
+	if($test!==""){
+		$page=mysql_real_escape_string($_GET['page']);
+		$userid=mysql_real_escape_string($_GET['userid']);
+		$firstname=mysql_real_escape_string($_GET['firstname']);
+		$lastname=mysql_real_escape_string($_GET['lastname']);
+		$prevpass=mysql_real_escape_string($_GET['prevpassword']);
+		$newpass=mysql_real_escape_string($_GET['newpassword']);
+		
+	}else if ($test=="") {
+		# code...
+		$page=mysql_real_escape_string($_POST['page']);
+		$userid=mysql_real_escape_string($_POST['userid']);
+		$prevpass=mysql_real_escape_string($_POST['prevpassword']);
+		$newpass=mysql_real_escape_string($_POST['newpassword']);
+	}
+	$prevlimit=($page*$host_app_pull_limit)-$host_app_pull_limit>0?($page*$host_app_pull_limit)-$host_app_pull_limit:0;
+	$nextlimit=$page*$host_app_pull_limit;
+	$limit="LIMIT $prevlimit,$nextlimit";
+	// echo $limit."<br>";
+	$outs=getSingleUserPlain($userid);
+	$totalpages=$outs['num_pages'];
+	$numrows=$outs['numrows'];
+	$catdata="";
+	if($numrows>0){
+		$scout="true";
+		$msg="Retrieval Successful";
+		// perform the updates
+		genericSingleUpdate("users","firstname","$firstname","id","$userid");
+		genericSingleUpdate("users","lastname","$lastname","id","$userid");
+		genericSingleUpdate("users","fullname","$firstname $lastname","id","$userid");
+		if($prevpass!==""&&$newpass!=="" &&$prevpass!==$newpass){
+			// test to see if the old password is equal to the new password setup
+			if($prevpass==$outs['pword']){
+				// perform the update to their password
+				genericSingleUpdate("users","pword","$newpass","id","$userid");
+
+			}
+		}else{
+			$scout="false";
+			$msg="It seems the previous password value is wrong against current user orthe previous password and new one are the same";
+		}
+	 	echo json_encode(array("success"=>"$scout","msg"=>"$msg","userid"=>"$userid","catdata"=>$catdata,"page"=>"$page","totalpages"=>"$totalpages"));
+	 	if($test!==""){
+			$scriptout='
+			<script>
+				var sdata='.json_encode(array("success"=>"$scout","msg"=>"$msg","userid"=>"$userid","catdata"=>$catdata,"page"=>"$page","totalpages"=>"$totalpages")).';
+			</script>
+			';
+			echo $scriptout;
+		}	
+	}else{
+		$totalpages=0; 
+		$msg="Retrieval fail no user match found";
+		$catdata="";$scout="false";
+		echo json_encode(array("success"=>"$scout","msg"=>"$msg","userid"=>"$userid","catdata"=>$catdata,"totalpages"=>"0"));
+		if($test!==""){
+			$scriptout='
+			<script>
+				var sdata='.json_encode(array("success"=>"$scout","msg"=>"$msg","userid"=>"$userid","catdata"=>$catdata,"page"=>"$page","totalpages"=>"$totalpages")).';
+			</script>
+			';
+			echo $scriptout;
+		}	
+	}
 }else if ($displaytype=="accountactivation") {
 	# code...
 }

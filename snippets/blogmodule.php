@@ -929,11 +929,14 @@ function getSingleBlogEntry($blogentryid){
 	$row['modifydate']=$modifydate;
 	$views=$row['views'];
 	$coverid=$row['coverphoto'];
-	// work om images based on blog entry types
+	// work on images based on blog entry types
 	$row['valbum']="";
 	$row['vfalbum']="";
 	$row['bannerthumb']="";
 	$row['bannermain']="";
+	$bannerpathdata='';
+	$albumdataoutput='';
+
 	if ($blogentrytype==""||$blogentrytype=="normal") {
 	  # code...
 	//get complete gallery images and create thumbnail where necessary;
@@ -1008,9 +1011,9 @@ function getSingleBlogEntry($blogentryid){
 	    if($count==0){
 	      // $coverphoto=$mediarow['details'];
 	      $coverphoto=$mediarow['location'];
-	  $coverphotothumb=$mediarow['details'];
-	  $coverphotothumb==""?$coverphoto=$coverphoto:$coverphoto=$coverphotothumb;
-	  $coverphoto==""?$coverphoto="./images/muyiwalogo5.png":$coverphoto=$coverphoto;
+		  $coverphotothumb=$mediarow['details'];
+		  $coverphotothumb==""?$coverphoto=$coverphoto:$coverphoto=$coverphotothumb;
+		  $coverphoto==""?$coverphoto="./images/muyiwalogo5.png":$coverphoto=$coverphoto;
 	      $maincoverphoto=$mediarow['location'];
 	    }
 
@@ -1054,20 +1057,20 @@ function getSingleBlogEntry($blogentryid){
 	  $row['vfalbum']=$vfalbum;
 	  }
 	$extraformdata='
-	<div id="formend" >
-	    <input type="hidden" name="gallerydata'.$id.'" data-title="'.$title.'" data-mainimg="'.$host_addr.''.$maincoverphoto.'" data-images="'.$locationstack.'" data-sizes="'.$dimensionstack.'" data-details=""/>
-	    Edit Photos from this blog post album.<br>
-	  '.$album.'
-	  <div id="formend">
-	    Add Gallery Photos for this post:<br>
-	    <input type="hidden" name="piccount" value=""/>
-	    <select name="photocount" class="curved2" title="Choose the amount of photos you want to upload, max of 10, then click below the selection to continue">
-	    <option value="">--choose amount--</option>
-	    '.$outselect.'
-	    </select>             
-	  </div>
-	</div>
-	<input type="hidden" name="blogentrytype" value="gallery"/>
+		<div id="formend" >
+		    <input type="hidden" name="gallerydata'.$id.'" data-title="'.$title.'" data-mainimg="'.$host_addr.''.$maincoverphoto.'" data-images="'.$locationstack.'" data-sizes="'.$dimensionstack.'" data-details=""/>
+		    Edit Photos from this blog post album.<br>
+		  '.$album.'
+		  <div id="formend">
+		    Add Gallery Photos for this post:<br>
+		    <input type="hidden" name="piccount" value=""/>
+		    <select name="photocount" class="curved2" title="Choose the amount of photos you want to upload, max of 10, then click below the selection to continue">
+		    <option value="">--choose amount--</option>
+		    '.$outselect.'
+		    </select>             
+		  </div>
+		</div>
+		<input type="hidden" name="blogentrytype" value="gallery"/>
 
 	';
 	}
@@ -1089,7 +1092,7 @@ function getSingleBlogEntry($blogentryid){
 	$link='<a href="'.$pagelink.'" target="_blank" title="click to view this blog post">'.$title.'</a>';
 	$commentcontent='
 	<div id="formend" name="minicommentsearchhold" style="">
-	<font style="font-size:18px;">Comments</font><br>
+		<font style="font-size:18px;">Comments</font><br>
 		<div id="formend" name="commentsearchpanehold">
 		After a search, if you want to view all comments again simply type in "<b>*fullcommentsview*</b>" to do so.<br>
 		<input type="text" class="curved" name="minisearch'.$id.'" data-id="'.$id.'" title="Use this search bar to search by comment word, i.e offensive or in appropriate words or by comment poster name" Placeholder="Search for words within comments..."/>
