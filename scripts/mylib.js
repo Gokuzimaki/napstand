@@ -8,11 +8,11 @@ if(host_addr.indexOf('ngrok.io')>-1){
     var host_addr="http://"+location.hostname+"/napstand/";
     // host_addr="http://localhost/napstand/";
 }
-if(host_addr.indexOf('ngrok.io/napstand')>-1){
+/*if(host_addr.indexOf('ngrok.io/napstand')>-1){
     // console.log();
-    var host_addr="http://"+location.hostname+"/";
+    // var host_addr="http://"+location.hostname+"/";
     // host_addr="http://localhost/napstand/";
-}
+}*/
 //get userid and usertype
 $(document).ready(function(){
 userid=$('input[name=userdata]').attr('data-userid');

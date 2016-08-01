@@ -345,7 +345,7 @@ header('location:../admin/adminindex.php');
       // echo "in here";
     }else{
       $logpart=md5($host_addr);
-      $userid=$_SESSION['aduid'.$logpart.'']?$_SESSION['aduid'.$logpart.''];
+      $userid=$_SESSION['aduid'.$logpart.'']?$_SESSION['aduid'.$logpart.'']:"";
       createNotification($userid,"admin","parentcontent",$msg,$curid,'parentcontent',"",0);
       header('location:../admin/adminindex.php?compid=0&type=parentcontent&v=admin&error=true');
       

@@ -543,7 +543,6 @@ if($displaytype==""){
 
 	}else if($displaytype=="fetchclientdata"&&$outs['usertype']=='client'){
 		$numval=1;
-		
 	}
 	$totalpages=$numval;
 	$numrows=$numval;
@@ -647,67 +646,159 @@ if($displaytype==""){
 	if($test!==""){
 		$page=mysql_real_escape_string($_GET['page']);
 		$userid=mysql_real_escape_string($_GET['userid']);
-		$firstname=mysql_real_escape_string($_GET['firstname']);
-		$lastname=mysql_real_escape_string($_GET['lastname']);
-		$prevpass=mysql_real_escape_string($_GET['prevpassword']);
-		$newpass=mysql_real_escape_string($_GET['newpassword']);
-		
+		$entrypoint=isset($_GET['entrypoint'])?$_GET['entrypoint']:"";
 	}else if ($test=="") {
 		# code...
 		$page=mysql_real_escape_string($_POST['page']);
 		$userid=mysql_real_escape_string($_POST['userid']);
-		$prevpass=mysql_real_escape_string($_POST['prevpassword']);
-		$newpass=mysql_real_escape_string($_POST['newpassword']);
+		$entrypoint=isset($_POST['entrypoint'])?$_POST['entrypoint']:"";
 	}
-	$prevlimit=($page*$host_app_pull_limit)-$host_app_pull_limit>0?($page*$host_app_pull_limit)-$host_app_pull_limit:0;
-	$nextlimit=$page*$host_app_pull_limit;
-	$limit="LIMIT $prevlimit,$nextlimit";
-	// echo $limit."<br>";
-	$outs=getSingleUserPlain($userid);
-	$totalpages=$outs['num_pages'];
-	$numrows=$outs['numrows'];
-	$catdata="";
-	if($numrows>0){
-		$scout="true";
-		$msg="Retrieval Successful";
-		// perform the updates
-		genericSingleUpdate("users","firstname","$firstname","id","$userid");
-		genericSingleUpdate("users","lastname","$lastname","id","$userid");
-		genericSingleUpdate("users","fullname","$firstname $lastname","id","$userid");
-		if($prevpass!==""&&$newpass!=="" &&$prevpass!==$newpass){
-			// test to see if the old password is equal to the new password setup
-			if($prevpass==$outs['pword']){
-				// perform the update to their password
-				genericSingleUpdate("users","pword","$newpass","id","$userid");
+	$entryid=$userid;
+	$uid=$entryid;
+	$uhash=md5($uid);
+	$userdata=getSingleUser($entryid);
+
+	$catid=0;
+	$entrypoint=isset($_POST['entrypoint'])?$_POST['entrypoint']:"";
+	// $catid=mysql_real_escape_string($_POST['catid']);
+	$firstname=mysql_real_escape_string($_POST['firstname']);
+	genericSingleUpdate("users","firstname",$firstname,"id",$entryid);
+	/*$middlename=mysql_real_escape_string($_POST['middlename']);
+	genericSingleUpdate("users","middlename",$middlename,"id",$entryid);*/
+	$lastname=mysql_real_escape_string($_POST['lastname']);
+	genericSingleUpdate("users","lastname",$lastname,"id",$entryid);
+	// $nickname=mysql_real_escape_string($_POST['nickname']);
+	$fullname=$firstname." ".$lastname;
+	genericSingleUpdate("users","fullname",$fullname,"id",$entryid);
+	if($firstname!==""){
+	 	createNotification($entryid,"users","update","Profile firstname was updated");
+
+	}
+	if($lastname!==""){
+	 	createNotification($entryid,"users","update","Profile lastname was updated");
+
+	}
+	if($fullname!==""){
+	 	createNotification($entryid,"users","update","Profile fullname was updated");
+
+	}
+	/*$status=isset($_POST['status'])?mysql_real_escape_string($_POST['status']):"active";
+	genericSingleUpdate("users","status",$status,"id",$entryid);*/
+	$email=isset($_POST['email'])?mysql_real_escape_string($_POST['email']):"";
+	if($email!==""){
+		$emaildata['email']="$email";
+		$emaildata['fieldcount']=1;
+		$emaildata['logic'][0]="AND";
+		$emaildata['column'][0]="usertype";
+		$emaildata['value'][0]="user";
+		$emaildata=checkEmail($emaildata,"users","email");
+		$password=$_POST['password'];
+		$prevpassword=$_POST['prevpassword'];
+		if($prevpassword!==""&&$prevpassword==$userdata['pword']&&$password!==""){
+			genericSingleUpdate("users","pword",$password,"id",$entryid);
+			// clear out user content, basically log them out and send em to the login page
+		    // unset($_SESSION['useri']);
+		    // unset($_SESSION['userh']);
+		    // header('location:../signupin.php');
+		}
+	}
+	// upload user profile image
+	$bizlogo=isset($_FILES['profpic']['tmp_name'])?$_FILES['profpic']['tmp_name']:"";
+	if($bizlogo!==""){
+	  $image="profpic";
+	  $imgpath[]='../files/originals/';
+	  $imgpath[]='../files/medsizes/';
+	  $imgpath[]='../files/thumbnails/';
+	  $imgsize[]="default";
+	  $imgsize[]=",240";
+	  $imgsize[]=",150";
+	  $acceptedsize="";
+	  $imgouts=genericImageUpload($image,"varying",$imgpath,$imgsize,$acceptedsize);
+	  $len=strlen($imgouts[0]);
+	  $imagepath=substr($imgouts[0], 1,$len);
+	  // medium size
+	  $len2=strlen($imgouts[1]);
+	  $imagepath2=substr($imgouts[1], 1,$len2);
+	  //  thumbnail size
+	  $len3=strlen($imgouts[2]);
+	  $imagepath3=substr($imgouts[2], 1,$len3);
+	  // get image size details
+	  list($width,$height)=getimagesize($imgouts[0]);
+	  $imagesize=$_FILES[''.$image.'']['size'];
+	  $filesize=$imagesize/1024;
+	  //// echo $filefirstsize;
+	  $filesize=round($filesize, 0, PHP_ROUND_HALF_UP);
+	  if(strlen($filesize)>3){
+	    $filesize=$filesize/1024;
+	    $filesize=round($filesize,2); 
+	    $filesize="".$filesize."MB";
+	  }else{
+	    $filesize="".$filesize."KB";
+	  }
+	  
+	  if($imgid<1){
+	    $mediaquery="INSERT INTO media(ownerid,ownertype,maintype,mediatype,location,details,filesize,width,height)VALUES
+	    ('$entryid','appuser','coverphoto','image','$imagepath','$imagepath2','$filesize','$width','$height')";
+	    $mediarun=mysql_query($mediaquery)or die(mysql_error()." ".__LINE__);
+	    
+	  }else{
+	    $imgdata=getSingleMediaDataTwo($imgid);
+	    $prevpic=$imgdata['location'];
+	    $prevthumb=$imgdata['details'];
+	    $realprevpic=".".$prevpic;
+	    $realprevthumb=".".$prevthumb;
+	    if(file_exists($realprevpic)&&$realprevpic!=="."){
+	      unlink($realprevpic);
+	    }
+	    if(file_exists($realprevthumb)&&$realprevthumb!=="."){
+	      unlink($realprevthumb);
+	    }
+	    genericSingleUpdate("media","location",$imagepath,"id",$imgid);
+	    // genericSingleUpdate("media","details",$imagepath2,"id",$imgid);
+	    genericSingleUpdate("media","filesize",$filesize,"id",$imgid);
+	    genericSingleUpdate("media","width",$width,"id",$imgid);
+	    genericSingleUpdate("media","height",$height,"id",$imgid);
+	    // echo "in here";
+	  }
+	}
+	$successstatus="true";
+	$msg="Updated Successfully";
+	if($email!==""){
+		// verify email once more and proceed only when the email is umatched
+		if($emaildata['testresult']=="unmatched"||($emaildata['testresult']=="matched"&&$emaildata['usertype']!=="appuser")){    
+			genericSingleUpdate("users","email",$email,"id",$entryid);	
+			if($entrypoint=="webapp"){
+
+			}else {
+			  	// echo json response here
+			  	$successstatus="true";
+			  	$msg="Updated Successfully";
+	 			createNotification($entryid,"users","update","Profile email was updated");
+			  
+			}
+		} else{
+			if($entrypoint=="webapp"){
+			    echo "The email address you attempted registering is invalid";
+			}else {
+
+			  	// echo json response here
+			  	$successstatus="false";
+				$msg="The email address you attempted changing to is invalid or taken";
 
 			}
-		}else{
-			$scout="false";
-			$msg="It seems the previous password value is wrong against current user orthe previous password and new one are the same";
+
 		}
-	 	echo json_encode(array("success"=>"$scout","msg"=>"$msg","userid"=>"$userid","catdata"=>$catdata,"page"=>"$page","totalpages"=>"$totalpages"));
-	 	if($test!==""){
-			$scriptout='
-			<script>
-				var sdata='.json_encode(array("success"=>"$scout","msg"=>"$msg","userid"=>"$userid","catdata"=>$catdata,"page"=>"$page","totalpages"=>"$totalpages")).';
-			</script>
-			';
-			echo $scriptout;
-		}	
-	}else{
-		$totalpages=0; 
-		$msg="Retrieval fail no user match found";
-		$catdata="";$scout="false";
-		echo json_encode(array("success"=>"$scout","msg"=>"$msg","userid"=>"$userid","catdata"=>$catdata,"totalpages"=>"0"));
-		if($test!==""){
-			$scriptout='
-			<script>
-				var sdata='.json_encode(array("success"=>"$scout","msg"=>"$msg","userid"=>"$userid","catdata"=>$catdata,"page"=>"$page","totalpages"=>"$totalpages")).';
-			</script>
-			';
-			echo $scriptout;
-		}	
 	}
+	// end of email mark section
+	if($entrypoint=="webapp"){
+		header('location:../admin/adminindex.php?compid=4&type=0&v=admin&ctype='.$entryvariant.'');  
+	}else {
+
+	  // echo json response here
+	  echo json_encode(array("success"=>"$successstatus","msg"=>"$msg"));
+
+	}
+
 }else if ($displaytype=="accountactivation") {
 	# code...
 }

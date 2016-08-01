@@ -41,7 +41,7 @@
 		if($numrowbizlogo>0){
 			$bizlogo='<img src="'.$host_addr.''.$bizlogorow2['location'].'">';
 			// $row['bizlogofile']=$bizlogorow2['location'];
-		$bizlogoid=$bizlogorow2['id'];
+			$bizlogoid=$bizlogorow2['id'];
 
 		}else{
 			$bizlogo='<p style="text-align:center;"><i class="fa fa-suitcase fa-3x"></i></p>';

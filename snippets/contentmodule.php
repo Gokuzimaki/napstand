@@ -391,6 +391,7 @@
 		/*end*/
 		$row['catdata']=array(
 							'id'=>$id,
+							'title'=>$contenttitle,
 							'description'=>$description,
 							'largcover'=>"$coverpicprev",
 							'mediumcover'=>"$coverpicmedsize",

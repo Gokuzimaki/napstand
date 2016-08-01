@@ -50,6 +50,11 @@ if(strpos($host_target_addr, "localhost")||strpos($host_target_addr, "wamp")){
   $host_addr=$host_target_addr!=="http://"&&$host_target_addr!=="https://"?$host_target_addr."napstand/":"http://napstand.com/";
   header("Access-Control-Allow-Origin: *");
 
+}else if(strpos($host_target_addr, "ngrok")){
+  $host_test="ngrok3";
+  $host_addr=$host_target_addr!=="http://"&&$host_target_addr!=="https://"?$host_target_addr."napstand/":"http://napstand.com/";
+  header("Access-Control-Allow-Origin: *");
+
 }else if(strpos($host_target_addr, "orgfree.com")){
   $host_test="orgfree"; 
   $host_addr=$host_target_addr!=="http://"&&$host_target_addr!=="https://"?$host_target_addr."napstand/":"http://napstand.com/";
