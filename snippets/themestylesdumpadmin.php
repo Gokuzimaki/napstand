@@ -25,6 +25,8 @@
     <link href='<?php echo $host_addr;?>plugins/select2/dist/css/select2-bootstrap.min.css' rel="stylesheet" type="text/css"/>
     <!-- msDropDown (Selcetion customizer) -->
     <link href='<?php echo $host_addr;?>plugins/msdropdown/css/dd.css' rel="stylesheet" type="text/css"/>
+    <!--Jquery validate -->
+    <link href='<?php echo $host_addr;?>plugins/jquery-validate/css/jquery-validate.css' rel="stylesheet" type="text/css"/>
     <!-- Bootstrap datetimepicker -->
     <link href='<?php echo $host_addr;?>plugins/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css' rel="stylesheet" type="text/css"/>
     <!-- Jquery Sortable -->

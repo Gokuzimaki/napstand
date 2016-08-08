@@ -1,5 +1,5 @@
 <?php 
-echo'&copy; THe Company Name ';
+echo'&copy; Napstand ';
 echo date('Y');
 echo'. Developed by Okebukola Olagoke.';
 ?>

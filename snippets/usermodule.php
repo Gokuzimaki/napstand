@@ -17,6 +17,7 @@
 			$bannermedimage="";
 			$bannerthumbimage="";
 		/*end*/
+		$nameout="";
 		if($numrows>0){
 			$row=mysql_fetch_assoc($run);
 			$id=$row['id'];
