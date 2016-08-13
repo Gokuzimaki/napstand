@@ -1394,7 +1394,7 @@ $run=mysql_query($query)or die(mysql_error()." Line 58");
 }else if ($entryvariant=="createappuser") {
   # code...
   // allow full access in here
-  // header("Access-Control-Allow-Origin: *");
+  // header("Access-Control-Allow-Ori  gin: *");
   $uid=getNextIdExplicit("users");
   $uhash=md5($uid);
   $catid=0;

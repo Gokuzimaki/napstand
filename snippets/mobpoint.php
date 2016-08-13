@@ -799,6 +799,64 @@ if($displaytype==""){
 
 	}
 
+}else if ($displaytype=="resetpassword") {
+	# code...
+	if($test!==""){
+		$page=mysql_real_escape_string($_GET['page']);
+		$entrypoint=isset($_GET['entrypoint'])?$_GET['entrypoint']:"";
+		$email=isset($_GET['email'])?mysql_real_escape_string($_GET['email']):"";
+	}else if ($test=="") {
+		# code...
+		$page=mysql_real_escape_string($_POST['page']);
+		$entrypoint=isset($_POST['entrypoint'])?$_POST['entrypoint']:"";
+		$email=isset($_POST['email'])?mysql_real_escape_string($_POST['email']):"";
+	}
+
+	if($email!==""){
+		$cmail=checkEmail("$email","users","email");
+	    if($cmail['testresult']=="matched"){
+	        $uid=$cmail['id'];
+	        $udata=getSingleUserPlain($uid);
+	        $userh=$udata['uhash'];
+	        $fullname=$udata['fullname'];
+	        $checksum=md5(date("Y-m-d H:i:s"));
+	        // store the current entry in the resetpassword table
+	        $query="INSERT INTO resetpassword (userid,checksum,entrydate)VALUES('$uid','$checksum',CURRENT_DATE())";
+	        $run=mysql_query($query)or die(mysql_error()." ".__LINE__);
+	        // send the link
+	        $link=''.$host_addr.'reset.php?h='.$userh.'&t=reset&checksum='.$checksum.'';
+	        $title="Your Reset Link";
+	        $content='
+	          <p style="text-align:left;">Hello '.$fullname.',<br>
+	          You just made a password reset request so we have your link below, <br>
+	          Here it is, just follow it and perform the reset:<br>
+	          <a href="'.$link.'">Reset Password</a>
+	          </p>
+	          <p style="text-align:right;">Thank You.</p>
+	        ';
+	        $footer='
+	            <ul>
+			        <li><strong>Phone 1: </strong>0807-207-6302</li>
+			        <li><strong>Email: </strong><a href="mailto:info@napstand.com">info@napstand.com</a></li>
+			    </ul>
+	        ';
+	        $emailout=generateMailMarkUp("frontiersjobconnect.com","$email","$title","$content","$footer","");
+	        // echo $emailout['rowmarkup'];
+	        $toemail=$email;
+	        $headers = "MIME-Version: 1.0" . "\r\n";
+	        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+	        $headers .= 'From: <no-reply@frontiersjobconnect.com>' . "\r\n";
+	        $subject="Password Reset";
+	        if($host_email_send===true){
+	          if(mail($toemail,$subject,$emailout['rowmarkup'],$headers)){
+
+	          }else{
+	            die('could not send Your email, something went wrong and we are handling it, meantime you could click the back button in your browser to get you out of here, we are really sorry');
+	          }
+	        }   
+	    }
+	}
+	
 }else if ($displaytype=="accountactivation") {
 	# code...
 }
