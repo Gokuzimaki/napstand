@@ -66,8 +66,9 @@ if(strpos($host_target_addr, "localhost")||strpos($host_target_addr, "wamp")){
   // for remote server
   $host_addr=$host_target_addr!=="http://"&&$host_target_addr!=="https://"?$host_target_addr:"http://napstand.com/";
   $host_email_send=true;
-  $username_pvmart = "theuploadusername";
-  $password_pvmart = "theuploadpassword";
+  $db="napstand_napstand";
+  $username_pvmart = "napstand_root";
+  $password_pvmart = 'Admin$p@55';
   // check for gzip config on godaddy
   if (substr_count($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip')) ob_start("ob_gzhandler"); else ob_start(); 
     

@@ -1962,7 +1962,7 @@ header('location:../admin/adminindex.php');
     // // echo $testquery;
     $testrun=mysql_query($testquery)or die(mysql_error()." Line ".__LINE__);
     $testnumrows=mysql_num_rows($testrun);
-    if($testnumrows>0){
+    if($testnumrows>1){
       header('location:../admin/adminindex.php?compid=0&type=editcontentcategory&v=admin&error=true&errort=nameexists');
     }else{
 		genericSingleUpdate("contentcategories","catname",$catname,"id",$entryid);

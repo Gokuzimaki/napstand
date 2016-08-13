@@ -1054,7 +1054,7 @@ $(document).ready(function() {
                 var confirmed=window.confirm('The form is ready to be submitted, if you want to cross check, click "Cancel" otherwise click "OK"');
                 console.log(confirmed);
                 if(confirmed===true){
-                $('form[name=userform]').submit();
+                    $('form[name=userform]').submit();
                 }
             }
         }
