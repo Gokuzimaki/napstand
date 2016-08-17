@@ -39,8 +39,8 @@ include('./snippets/connection.php');
     <script src="./dist/js/app.js" type="text/javascript"></script>
     <script src="./scripts/mylib.js" type="text/javascript"></script>
     <script src="./scripts/formchecker.js" type="text/javascript"></script>
-    <script src="./scripts/adsbountyadmin.js" type="text/javascript"></script>
-    <script src="./plugins/iCheck/icheck.min.js" type="text/javascript"></script>
+    <!-- // <script src="./scripts/napstandadmin.js" type="text/javascript"></script> -->
+    <!-- // <script src="./plugins/iCheck/icheck.min.js" type="text/javascript"></script> -->
 
   </head>
   <body class="skin-yellow login-page">
@@ -51,7 +51,7 @@ include('./snippets/connection.php');
       <div class="login-box-body">
         <p class="login-box-msg">User Login</p>
         <form action="./snippets/basiclog.php" name="adminloginform" method="post">
-        	<input type="hidden" name="logtype" value="adminlogin"/>
+        	<input type="hidden" name="logtype" value="user"/>
           <div class="form-group has-feedback"
           >
             <input type="text" class="form-control"  name="username" placeholder="Username"/>

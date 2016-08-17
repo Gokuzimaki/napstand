@@ -5,12 +5,12 @@ if(strpos($host_target_addr, "localhost/")||strpos($host_target_addr, "wamp")){
   	// for local server
 	include('./snippets/cronit.php');
 }
-$logpart=md5($host_addr);
+/*$logpart=md5($host_addr);
 if (isset($_SESSION['logcheck'.$logpart.''])&&$_SESSION['logcheck'.$logpart.'']=="on"||$_SESSION['logcheck'.$logpart.'']==""||!isset($_SESSION['logcheck'.$logpart.''])) {
 	header('location:index.php?error=true');
 }
 $uid=$_SESSION['aduid'.$logpart.'']?$_SESSION['aduid'.$logpart.'']:header('location:index.php?error=nosession');
-$alevel=$_SESSION['accesslevel'.$logpart.''];
+$alevel=$_SESSION['accesslevel'.$logpart.''];*/
 // echo $_SESSION['logcheck'.$logpart.''];
 $mview="";
 $sview="";

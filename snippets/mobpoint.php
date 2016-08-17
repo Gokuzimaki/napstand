@@ -899,6 +899,85 @@ if($displaytype==""){
 	    }
 	}
 	
+}else if ($displaytype=="forceuserreset") {
+	# code...
+	if($test!==""){
+		$userid=mysql_real_escape_string($_GET['userid']);
+		$page=mysql_real_escape_string($_GET['page']);		
+	}else if ($test=="") {
+		# code...
+		$userid=mysql_real_escape_string($_POST['userid']);
+		$page=mysql_real_escape_string($_POST['page']);
+		
+	}
+	$userdata=getSingleUser($userid);
+	$status=$userdata['status'];
+	if($status=="active"){
+		// get a login hash for this user
+		$hashvar=$userid."_".date("Y-m-d H:i:s");
+		$hashvar=md5($hashvar);
+		// get previous login information
+		$orderfield[0]='userid';
+		$orderfield[1]='usertype';
+		$orderfield[2]='action';
+		$ordervalue[0]=$userid;
+		$ordervalue[1]='users';
+		$ordervalue[2]='login';
+		$order=" ORDER BY id DESC";
+		$limit=" LIMIT 0,1";
+		$outlogprev=getNotifications('notifications',$orderfield,$ordervalue,$order,$limit);
+		$lastloginid=0;
+		$lastloghash="";
+		// obtain last login id
+		if($outlogprev['numrows']>0){
+			// $lastloginid=$outlogprev['numrows']>1?$outlogprev[0]['id']:$outlogprev['id'];
+			$lastloginid=$outlogprev['id'];
+			// get last loginhash
+			$lastloghash=$outlogprev['actionhash'];
+		}
+		// get log out information
+		$orderfield[0]='userid';
+		$orderfield[1]='usertype';
+		$orderfield[2]='action';
+		$ordervalue[0]=$userid;
+		$ordervalue[1]='users';
+		$ordervalue[2]='logout';
+		$order=" ORDER BY id DESC";
+		$limit=" LIMIT 0,1";
+		$outlogprev2=getNotifications('',$orderfield,$ordervalue,$order,$limit);
+		$lastlogoutid=0;
+		// obtain last logout date
+		if($outlogprev2['numrows']>0){
+			// $lastlogoutid=$outlogprev2['numrows']>1?$outlogprev2[0]['id']:$outlogprev2['id'];				
+			$lastlogoutid=$outlogprev2['id'];				
+		}
+		// echo "lastlogin:$lastloginid  lastlogout:$lastlogoutid <br>";
+		if(($lastlogoutid==0&&$lastloginid==0)||($lastlogoutid>$lastloginid)||($lastloginid>$lastlogoutid&&$lastloghash=="")){
+			// this means the current user is on a device that hasn't been logged in
+			// or they are first timers
+			$msg="User has no valid login record to reset";
+			// createNotification($userid,"users","login","$msg","","","$hashvar");
+ 			echo json_encode(array(	"success"=>"false",
+ 									"msg"=>"$msg",
+ 									"userid"=>"$userid",
+ 									"status"=>"$status"));
+		}else{
+			$msg="Successfully Logged out";
+			genericSingleUpdate('notifications',"entrydate","$todaynow",'id',"$lastloginid");
+			createNotification($userid,"users","logout",$msg);
+ 			echo json_encode(array(	"success"=>"true","msg"=>"$msg","userid"=>"$userid","status"=>"$status"));					
+			
+
+		}
+		if($test!==""){
+
+		}
+	}else{
+		$msg="Account has been disabled";
+
+		echo json_encode(array("success"=>"false","msg"=>"$msg","userid"=>"","firstname"=>"","middlename"=>"","lastname"=>"","status"=>""));
+	}
+
 }else if ($displaytype=="accountactivation") {
 	# code...
 }
