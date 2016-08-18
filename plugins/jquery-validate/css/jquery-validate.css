@@ -1,0 +1,12 @@
+.validation-error {
+    color: #FF7786;
+    font-weight: 100;
+    padding: 5px;
+    background-color: #4C0000;
+    width: 100%;
+}
+label.validation-error {
+    display: inline-block;
+    margin-bottom: 5px;
+    line-height: 24px;
+}

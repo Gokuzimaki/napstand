@@ -812,48 +812,92 @@ if($displaytype==""){
 		$email=isset($_POST['email'])?mysql_real_escape_string($_POST['email']):"";
 	}
 
+    $linkout="";
+
 	if($email!==""){
-		$cmail=checkEmail("$email","users","email");
+		$emaildata['email']="$email";
+		$emaildata['fieldcount']=1;
+		$emaildata['logic'][0]="AND";
+		$emaildata['column'][0]="usertype";
+		$emaildata['value'][0]="appuser";
+		$cmail=checkEmail($emaildata,"users","email");
+
 	    if($cmail['testresult']=="matched"){
 	        $uid=$cmail['id'];
 	        $udata=getSingleUserPlain($uid);
 	        $userh=$udata['uhash'];
 	        $fullname=$udata['fullname'];
-	        $checksum=md5(date("Y-m-d H:i:s"));
-	        // store the current entry in the resetpassword table
-	        $query="INSERT INTO resetpassword (userid,checksum,entrydate)VALUES('$uid','$checksum',CURRENT_DATE())";
-	        $run=mysql_query($query)or die(mysql_error()." ".__LINE__);
-	        // send the link
-	        $link=''.$host_addr.'reset.php?h='.$userh.'&t=reset&checksum='.$checksum.'';
-	        $title="Your Reset Link";
-	        $content='
-	          <p style="text-align:left;">Hello '.$fullname.',<br>
-	          You just made a password reset request so we have your link below, <br>
-	          Here it is, just follow it and perform the reset:<br>
-	          <a href="'.$link.'">Reset Password</a>
-	          </p>
-	          <p style="text-align:right;">Thank You.</p>
-	        ';
-	        $footer='
-	            <ul>
-			        <li><strong>Phone 1: </strong>0807-207-6302</li>
-			        <li><strong>Email: </strong><a href="mailto:info@napstand.com">info@napstand.com</a></li>
-			    </ul>
-	        ';
-	        $emailout=generateMailMarkUp("frontiersjobconnect.com","$email","$title","$content","$footer","");
-	        // echo $emailout['rowmarkup'];
-	        $toemail=$email;
-	        $headers = "MIME-Version: 1.0" . "\r\n";
-	        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-	        $headers .= 'From: <no-reply@frontiersjobconnect.com>' . "\r\n";
-	        $subject="Password Reset";
-	        if($host_email_send===true){
-	          if(mail($toemail,$subject,$emailout['rowmarkup'],$headers)){
+	        $checksum=md5(date("Y-m-d H:i:s").$userh);
+	        if($udata['status']=="active"){
 
-	          }else{
-	            die('could not send Your email, something went wrong and we are handling it, meantime you could click the back button in your browser to get you out of here, we are really sorry');
-	          }
-	        }   
+		        // store the current entry in the resetpassword table
+		        $query="INSERT INTO resetpassword (userid,checksum,entrydate)VALUES('$uid','$checksum',CURRENT_DATE())";
+		        $run=mysql_query($query)or die(mysql_error()." ".__LINE__);
+		        // send the link
+		        $link=''.$host_addr.'reset.php?h='.$userh.'&t=reset&checksum='.$checksum.'';
+		        $title="Your Reset Link";
+		        $content='
+		          <p style="text-align:left;">Hello '.$fullname.',<br>
+		          You just made a password reset request so we have your link below, <br>
+		          Here it is, just follow it and perform the reset:<br>
+		          <a href="'.$link.'">Reset Password</a>
+		          </p>
+		          <p style="text-align:right;">Thank You.</p>
+		        ';
+		        $footer='
+		            <ul>
+				        <li><strong>Phone 1: </strong>0807-207-6302</li>
+				        <li><strong>Email: </strong><a href="mailto:info@napstand.com">info@napstand.com</a></li>
+				    </ul>
+		        ';
+		        $emailout=generateMailMarkUp("napstand.com","$email","$title","$content","$footer","");
+		        // echo $emailout['rowmarkup'];
+		        $toemail=$email;
+		        $headers = "MIME-Version: 1.0" . "\r\n";
+		        $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+		        $headers .= 'From: <no-reply@napstand.com>' . "\r\n";
+		        $subject="Password Reset";
+		        if($host_email_send===true){
+		          if(mail($toemail,$subject,$emailout['rowmarkup'],$headers)){
+		          	$successstatus="true";
+		          	$msg="Successfully sent mail";
+		          }else{
+		          	$successstatus="false";
+		          	$msg="could not send Your email";
+		            // die('could not send Your email, something went wrong and we are handling it, meantime you could click the back button in your browser to get you out of here, we are really sorry');
+		          }
+		        }else{
+		        	$successstatus="true";
+		          	$msg="Local test environment recognized";
+		        }
+				if($test!==""){
+					$linkout=$link;
+		        }   
+	  			echo json_encode(array("success"=>"$successstatus","msg"=>"$msg","link"=>"$linkout"));
+				if($test!==""){
+					$linkout=$link;
+		  			$scriptout='
+					<script>
+						var sdata='.json_encode(array("success"=>"$successstatus","msg"=>"$msg","link"=>"$linkout")).';
+					</script>
+					';
+					// echo $scriptout;
+		        }
+	        }
+	    }else{
+		    $successstatus="false";
+
+		    $msg="Local test environment recognized but email varification failed";
+
+	  		echo json_encode(array("success"=>"$successstatus","msg"=>"$msg","link"=>"$linkout"));
+	  		if($test!==""){
+	  			$scriptout='
+				<script>
+					var sdata='.json_encode(array("success"=>"$successstatus","msg"=>"$msg","link"=>"$linkout")).';
+				</script>
+				';
+				// echo $scriptout;
+	  		}
 	    }
 	}
 	

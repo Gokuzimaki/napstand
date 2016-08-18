@@ -1,17 +1,18 @@
-<!-- jQuery 2.1.3 -->
+    <!-- jQuery 2.1.3 -->
     <script src="<?php echo $host_addr;?>plugins/jQuery/jQuery-2.1.3.min.js"></script>
     <!-- Bootstrap 3.3.2 JS -->
     <script src="<?php echo $host_addr;?>bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
 	<script src="<?php echo $host_addr;?>scripts/js/jquery.jplayer.min.js"></script>
 	<script src="<?php echo $host_addr;?>scripts/js/vendor/jquery.ui.widget.js"></script>
     <script src="<?php echo $host_addr;?>scripts/mylib.js" type="text/javascript"></script>
-    <script src="<?php echo $host_addr;?>scripts/formchecker.js" type="text/javascript"></script>
     <!-- Select2 (Selcetion customizer) -->
     <script src='<?php echo $host_addr;?>plugins/select2/dist/js/select2.full.min.js'></script>
     <!-- Bootpag (bootstrap paginator) -->
     <script src='<?php echo $host_addr;?>plugins/bootpag/jquery.bootpag.min.js'></script>
     <!-- msDropDown (Selection dropdown customizer) -->
     <script src='<?php echo $host_addr;?>plugins/msdropdown/js/jquery.dd.min.js'></script>
+    <!--Jquery validate   -->
+    <script src='<?php echo $host_addr;?>plugins/jquery-validate/js/jquery.validate.js'></script>
     <!-- SlimScroll -->
     <script src="<?php echo $host_addr;?>plugins/slimScroll/jquery.slimscroll.min.js" type="text/javascript"></script>
     <!-- FastClick -->
@@ -39,18 +40,20 @@
     <!-- Jquery Sortable  -->
     <script src="<?php echo $host_addr;?>plugins/jquery-sortable/js/jquery-sortable.js" type="text/javascript"></script>
     <!-- RubaXa Sortable -->
-	<script src="<?php echo $host_addr;?>plugins/rubaxa-sortable/js/Sortable.js"></script>
+    <script src="<?php echo $host_addr;?>plugins/rubaxa-sortable/js/Sortable.js"></script>
     
-	
-	<!-- The XDomainRequest Transport is included for cross-domain file deletion for IE 8 and IE 9 -->
-	<!--[if (gte IE 8)&(lt IE 10)]>
-	<script src="js/cors/jquery.xdr-transport.js"></script>
-	<![endif]-->
-	<!-- end -->
+    
+    <!-- The XDomainRequest Transport is included for cross-domain file deletion for IE 8 and IE 9 -->
+    <!--[if (gte IE 8)&(lt IE 10)]>
+    <script src="js/cors/jquery.xdr-transport.js"></script>
+    <![endif]-->
+    <!-- formchecker.js -->
+    <script src="<?php echo $host_addr;?>scripts/formchecker.js" type="text/javascript"></script>
+    <!-- end -->
     <!-- AdminLTE App -->
     <script src="<?php echo $host_addr;?>dist/js/app.js" type="text/javascript"></script>
     <script src="<?php echo $host_addr;?>scripts/lightbox.js" type="text/javascript"></script>
     <script src="<?php echo $host_addr;?>scripts/napstandadmin.js" type="text/javascript"></script>
-	<script language="javascript" type="text/javascript" src="<?php echo $host_addr;?>scripts/js/tinymce/jquery.tinymce.min.js"></script>
+    <script language="javascript" type="text/javascript" src="<?php echo $host_addr;?>scripts/js/tinymce/jquery.tinymce.min.js"></script>
     <script language="javascript" type="text/javascript" src="<?php echo $host_addr;?>scripts/js/tinymce/tinymce.min.js"></script>
     <script language="javascript" type="text/javascript" src="<?php echo $host_addr;?>scripts/js/tinymce/basic_config.js"></script>

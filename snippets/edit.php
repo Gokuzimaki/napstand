@@ -520,16 +520,25 @@ header('location:../admin/adminindex.php');
 }elseif ($entryvariant=="resetpassword") {
 	# code...
 	$password=mysql_real_escape_string($_POST['password']);
+	$confirmpassword=isset($_POST['confirmpassword'])?mysql_real_escape_string($_POST['confirmpassword']):"";
 	$checksum=mysql_real_escape_string($_POST['checksum']);
-	genericSingleUpdate("users","pword",$password,"id",$entryid);
-	genericSingleUpdate("users","status","active","id",$entryid);
-	$orderfields[]="userid";
-	$orderfields[]="checksum";
-	$ordervalues[]=$entryid;
-	$ordervalues[]=$checksum;
-	// update resetpassword so the checksum cant be used again
-	genericSingleUpdate("resetpassword","status","inactive",$orderfields,$ordervalues);
-	header('location:../signupin.php?t=reset');
+	if ($password!==""&&$confirmpassword!==""&&$password==$confirmpassword) {
+		# code...
+		genericSingleUpdate("users","pword",$password,"id",$entryid);
+		$orderfields[]="userid";
+		$orderfields[]="checksum";
+		$ordervalues[]=$entryid;
+		$ordervalues[]=$checksum;
+		// update resetpassword so the checksum cant be used again
+		genericSingleUpdate("resetpassword","status","inactive",$orderfields,$ordervalues);
+		if(isset($_POST['rettype'])&&$_POST['rettype']!==""){
+			header('location:../reset.php?t=resetdone');
+		}else{
+			header('location:../index.php?t=reset');
+		}
+	}else{
+		echo "Invalid data transaction, code: 10034";
+	}
 
 }elseif ($entryvariant=="rewardcategory") {
 	# code...
@@ -1953,7 +1962,7 @@ header('location:../admin/adminindex.php');
     // // echo $testquery;
     $testrun=mysql_query($testquery)or die(mysql_error()." Line ".__LINE__);
     $testnumrows=mysql_num_rows($testrun);
-    if($testnumrows>0){
+    if($testnumrows>1){
       header('location:../admin/adminindex.php?compid=0&type=editcontentcategory&v=admin&error=true&errort=nameexists');
     }else{
 		genericSingleUpdate("contentcategories","catname",$catname,"id",$entryid);

@@ -152,6 +152,13 @@
   				$mpageheadtagextras='
 
   				';
+			}else if($activepage_type=="resetpassword"){
+				$mpagetitle="Password Reset | Napstand";
+  				$mpagedescription="Reset your Napstand account password";
+  				$mpagekeywords="";
+  				$mpageheadtagextras='
+
+  				';
 			}
 
 		}
