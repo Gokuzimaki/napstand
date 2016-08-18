@@ -547,13 +547,13 @@ $(document).ready(function() {
         //update dom when finished, takes four params targetElement,entryType,entryEffect,period
         comremreq.update('div[name=minicommentsearchhold] div[data-id=' + cid + ']', 'html', '', 0);
         $('div[name=minicommentsearchhold] div[data-id=' + cid + ']').fadeOut(500);
-        console.log($('div[name=minicommentsearchhold] div[data-id=' + cid + ']'));
+        // console.log($('div[name=minicommentsearchhold] div[data-id=' + cid + ']'));
     });
     
     $(document).on("click", "td[name=trcontrolpoint] a", function() {
         var linkname = $(this).attr("name");
         var linkid = $(this).attr("data-divid");
-        console.log(linkid, linkname);
+        // console.log(linkid, linkname);
         if (linkname == "disablecomment") {
             $(this).attr({
                 "name": "reactivatecomment",

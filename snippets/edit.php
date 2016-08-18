@@ -1972,12 +1972,12 @@ header('location:../admin/adminindex.php');
 
 		$status=mysql_real_escape_string($_POST['status']);
 		genericSingleUpdate("contentcategories","status",$status,"id",$entryid);
-	  $imgid=$_POST['imgid'];
-	  //$coverpicid=getNextId("media");
-	  $imgname=$_FILES['profpic']['tmp_name'];
-	  if($imgname!==""){
-	      	$image="profpic";
-	      
+		$imgid=$_POST['imgid'];
+		//$coverpicid=getNextId("media");
+		$imgname=$_FILES['profpic']['tmp_name'];
+		if($imgname!==""){
+		  	$image="profpic";
+		  
 		    $imgpath[]='../images/categoryimages/';
 		    $imgpath[]='../images/categoryimages/medsizes/';
 		    $imgpath[]='../images/categoryimages/thumbnails/';
@@ -2039,8 +2039,8 @@ header('location:../admin/adminindex.php');
 			    // echo "$mediaquery media query<br>";
 		    	$mediarun=mysql_query($mediaquery)or die(mysql_error()." Line ".__LINE__);
 			}
-	  }
-      header('location:../admin/adminindex.php?compid=0&type=contentcategories&v=admin&error=true');
+		}
+		header('location:../admin/adminindex.php?compid=0&type=contentcategories&v=admin&error=true');
     }
 }elseif ($entryvariant=="editparentcontentadmin") {
     $contenttitle=mysql_real_escape_string($_POST['contenttitle']);    

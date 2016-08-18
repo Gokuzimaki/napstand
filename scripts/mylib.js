@@ -1,5 +1,5 @@
 //set this variable for new projects to work
-var host_addr="http://"+location.hostname+"/";
+var host_addr="http://"+location.hostname+"/adminx/";
 if(host_addr.indexOf('localhost/')>-1){
     host_addr="http://localhost/napstand/";
 }
@@ -238,6 +238,8 @@ $(document).on("click","div.meneame div[data-name=paginationpageshold] a",functi
   var page=$(this).attr("data-page");
   var ipp=$(this).attr("data-ipp");
   var curquery=$("input[name=curquery]").val();
+  // run a replacement on the curquery * value
+  curquery=curquery.replace(/[*]/g,'_asterisk_');
   var outputtype=$("input[name=outputtype]").val();
   // console.log("achieved",page,ipp,curquery,outputtype);
   var pagesreq=new Request();
@@ -256,6 +258,7 @@ $(document).on("change","div.meneame input[name=currentview]",function(){
   var page=$("div.meneame input[name=currentview]").attr("data-page");
   var ipp=$("div.meneame input[name=currentview]").attr("data-ipp");
   var curquery=$("input[name=curquery]").val();
+  curquery=curquery.replace(/[*]/g,'_asterisk_');
   var outputtype=$("input[name=outputtype]").val();
 
   // var url=''+host_addr+'snippets/display.php?displaytype=paginationpagesout&curquery='+curquery+'&outputtype='+outputtype+'&ipp='+ipp+'&page='+page+'&extraval=admin';
@@ -279,6 +282,7 @@ $(document).on("blur","div.meneame select[name=entriesperpage]",function(){
   if(ipp!==ipp2){
     var page=1;
     var curquery=$("input[name=curquery]").val();
+    curquery=curquery.replace(/[*]/g,'_asterisk_');
     var outputtype=$("input[name=outputtype]").val();
     // console.log("achieved",page,ipp,curquery,outputtype);
     var pagesreq=new Request();
