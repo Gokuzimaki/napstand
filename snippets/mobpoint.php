@@ -44,7 +44,7 @@ if($dhash!==""){
 	$orderfield[0]='actionhash';
 	$orderfield[1]='usertype';
 	$orderfield[2]='action';
-	$ordervalue[0]=$devicehash;
+	$ordervalue[0]=$dhash;
 	$ordervalue[1]='users';
 	$ordervalue[2]='login';
 	$order=" ORDER BY id DESC";
@@ -71,6 +71,8 @@ if($dhash!==""){
 									"msg"=>"$msg",
 									"userid"=>"$userid",
 									"status"=>"$status"));
+		}else{
+			$dhash="true";
 		}
 	}
 }else{
@@ -81,9 +83,7 @@ if($dhash!==""){
 									"userid"=>"$userid",
 									"status"=>"$status"));
 }
-if($dhash=="true"){
-
-
+if($dhash=="true"||$displaytype=="forceuserreset"){
 
 	if($displaytype==""){
 	// echo $displaytype;
