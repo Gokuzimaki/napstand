@@ -92,7 +92,7 @@ $(document).ready(function() {
                 window.alert('Please fill the category name field.');
                 $(inputname2).addClass('error-class').focus();
                 formstatus = false;
-            } else if (inputname1.val() == "3" && inputname3.val() == "") {
+            } /*else if (inputname1.val() == "3" && inputname3.val() == "") {
                 window.alert('Please select a category image for this, endeavour to make sure your image dimension is not too large i.e greater than 1280 on both width and length.');
                 $(inputname3).addClass('error-class').focus();
                 formstatus = false;
@@ -100,7 +100,7 @@ $(document).ready(function() {
                 window.alert('Please state the subtext of the category.');
                 $(inputname4).addClass('error-class').focus();
                 formstatus = false;
-            }
+            }*/
             // console.log(status);
             if (formstatus == true) {
                 var confirmed = window.confirm('The form is ready to be submitted, if you want to cross check, click "Cancel" otherwise click "OK"');

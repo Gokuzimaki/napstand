@@ -62,15 +62,17 @@ if(strpos($host_target_addr, "localhost")||strpos($host_target_addr, "wamp")){
   $db="1170406";
   $username_pvmart = "1170406";
   $password_pvmart = "edotensei";
+  header("Access-Control-Allow-Origin: *");
 }else{
   // for remote server
-  $host_addr=$host_target_addr!=="http://"&&$host_target_addr!=="https://"?$host_target_addr:"http://napstand.com/";
+  $host_addr=$host_target_addr!=="http://"&&$host_target_addr!=="https://"?$host_target_addr."adminx/":"http://napstand.com/adminx/";
   $host_email_send=true;
   $db="napstand_napstand";
   $username_pvmart = "napstand_root";
   $password_pvmart = 'Admin$p@55';
+  header("Access-Control-Allow-Origin: *");
   // check for gzip config on godaddy
-  if (substr_count($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip')) ob_start("ob_gzhandler"); else ob_start(); 
+  // if (substr_count($_SERVER['HTTP_ACCEPT_ENCODING'], 'gzip')) ob_start("ob_gzhandler"); else ob_start(); 
     
   
 }
@@ -2129,7 +2131,7 @@ function generateMailMarkup($from,$to,$title,$content,$footer,$type){
           <tbody>
             <tr>
              <td class="heading">
-              <img src="'.$host_addr.'images/adsbounty5.png"  alt="Adsbounty" width="220" height="" style="display: inline-block;" /><br>
+              <img src="'.$host_addr.'images/napstand.png"  alt="Napstand" width="220" height="" style="display: inline-block;" /><br>
              </td>
             </tr>
             <tr>
@@ -2156,7 +2158,7 @@ function generateMailMarkup($from,$to,$title,$content,$footer,$type){
             </tr>
             <tr>
               <td class="footing">
-                &copy; AdsBounty '.date("Y").' Developed by Okebukola Olagoke.<br>
+                &copy; Napstand '.date("Y").' Developed by Okebukola Olagoke.<br>
               </td>
             </tr>
           </tbody>
