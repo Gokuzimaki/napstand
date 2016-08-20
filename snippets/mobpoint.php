@@ -583,12 +583,13 @@ if($dhash=="true"||$displaytype=="forceuserreset"){
 			$page=mysql_real_escape_string($_GET['page']);
 			$userid=mysql_real_escape_string($_GET['userid']);
 			$cid=mysql_real_escape_string($_GET['cid']);
-			
+			$transactionview=isset($_GET['transactionview'])?mysql_real_escape_string($_GET['transactionview']):"";			
 		}else if ($test=="") {
 			# code...
 			$page=mysql_real_escape_string($_POST['page']);
 			$userid=mysql_real_escape_string($_POST['userid']);
 			$cid=mysql_real_escape_string($_POST['cid']);
+			$transactionview=isset($_POST['transactionview'])?mysql_real_escape_string($_POST['transactionview']):"";
 		}
 		$prevlimit=($page*$host_app_pull_limit)-$host_app_pull_limit>0?($page*$host_app_pull_limit)-$host_app_pull_limit:0;
 		$nextlimit=$page*$host_app_pull_limit;

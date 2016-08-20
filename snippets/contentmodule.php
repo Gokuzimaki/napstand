@@ -1350,8 +1350,8 @@
 
 	function getAllContentEntries($viewer,$type,$typeid,$limit,$cattype="",$singletotal="",$appuserid=""){
 		include('globalsmodule.php');
-		$row=array();
-	
+		// transview forces a purchased content view for the appuser
+		$row=array();	
 		$extraquery="";
 		$concat=$viewer=="admin"?"WHERE":"AND";
 		$subquery="";
@@ -1359,7 +1359,13 @@
 		$lastid=0;
 		$nextid=0;
 		$userid="";
-		$appuserstatcontrolextra="(status='active' OR status='inactive')";
+		/*if($transview=="true"){
+			$appuserstatcontrolextra="(status='active' OR status='inactive')";
+			
+		}else{*/
+			$appuserstatcontrolextra="status='active'";
+
+		/*}*/
 		if(is_array($typeid)){
 			$hold=$typeid;
 			$typeid=$hold[0];
