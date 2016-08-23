@@ -1458,7 +1458,7 @@
 				# code...
 				$userid=$_SESSION['useri'];
 				$query="SELECT * FROM contententries WHERE status='active' $extraquery $limit";
-				$rowmonitor['chiefquery']="SELECT * FROM contententries status='active' $extraquery";
+				$rowmonitor['chiefquery']="SELECT * FROM contententries WHERE status='active' $extraquery";
 			}else if ($appuserid>0) {
 				# code...
 				$query="SELECT * FROM contententries WHERE $appuserstatcontrolextra $extraquery $limit";

@@ -1,4 +1,31 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<?php
+  include('connection.php');
+  $email="";
+  $fullname="Saheed Ajuibulu";
+  $confirmationlink="";
+
+  $title="WELCOME TO NAPSTAND!!!";
+  $content='
+      <p style="text-align:left;">Hello there '.$fullname.',<br>
+      We at Napstand are really happy you took your time to come on board our platform, <br>
+      We hope to deliver a lovely user experience as you move on to utilise our platform<br>
+      to post your content, reach a wider range of individuals, and raise awareness as well.<br>
+      Seeing as you have just registered, all thats left is for you to confirm your account by 
+      <a href="'.$confirmationlink.'">Clicking here</a><br>
+      and thats it. note that your account will remain active for the next 7 days without being activated</p>
+      <p style="text-align:right;">Thank You.</p>
+  ';
+  $footer='
+    <ul>
+        <li><strong>Phone 1: </strong>0807-207-6302</li>
+        <li><strong>Email: </strong><a href="mailto:info@napstand.com">info@napstand.com</a></li>
+    </ul>
+  ';
+  $toemail=$email;
+  $emailout=generateMailMarkUp("napstand.com","$email","$title","$content","$footer","");
+  echo $emailout['rowmarkup'];
+?>
+<!-- <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
  <head>
   <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -48,4 +75,4 @@ The Lord now created spirit beings in His image but not in His likeness, so in a
   </tr>
  </table>
 </body>
-</html>
+</html> -->

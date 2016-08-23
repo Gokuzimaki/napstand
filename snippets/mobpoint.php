@@ -95,11 +95,13 @@ if($dhash=="true"||$displaytype=="forceuserreset"){
 		if($test!==""){
 			$username=mysql_real_escape_string($_GET['username']);
 			$password=mysql_real_escape_string($_GET['password']);
+			$password=mysql_real_escape_string($_GET['password']);
 			
 		}else if ($test=="") {
 			# code...
 			$username=mysql_real_escape_string($_POST['username']);
 			$password=mysql_real_escape_string($_POST['password']);
+			$password=mysql_real_escape_string($_POST['']);
 		}
 		$iniquery="SELECT * FROM users WHERE email='$username' AND pword='$password' AND usertype='appuser'";
 		$inirun=mysql_query($iniquery)or die(mysql_error()." ".__LINE__);
@@ -756,11 +758,11 @@ if($dhash=="true"||$displaytype=="forceuserreset"){
 		$catid=0;
 		$entrypoint=isset($_POST['entrypoint'])?$_POST['entrypoint']:"";
 		// $catid=mysql_real_escape_string($_POST['catid']);
-		$firstname=mysql_real_escape_string($_POST['firstname']);
+		$firstname=isset($_POST['firstname'])?mysql_real_escape_string($_POST['firstname']):"";
 		genericSingleUpdate("users","firstname",$firstname,"id",$entryid);
 		/*$middlename=mysql_real_escape_string($_POST['middlename']);
 		genericSingleUpdate("users","middlename",$middlename,"id",$entryid);*/
-		$lastname=mysql_real_escape_string($_POST['lastname']);
+		$lastname=isset($_POST['firstname'])?mysql_real_escape_string($_POST['lastname']):"";
 		genericSingleUpdate("users","lastname",$lastname,"id",$entryid);
 		// $nickname=mysql_real_escape_string($_POST['nickname']);
 		$fullname=$firstname." ".$lastname;
@@ -1077,6 +1079,22 @@ if($dhash=="true"||$displaytype=="forceuserreset"){
 
 	}else if ($displaytype=="accountactivation") {
 		# code...
+		if(isset($_GET['uh'])){
+			// echo "test two";
+			$uhashdata=$_GET['uh'];
+			$email=isset($_GET['utm_email'])?$_GET['utm_email']:"";
+			$uhashdata=explode(".", $uhashdata);
+			$uhash=$uhashdata[0];
+			$uid=$uhashdata[1];
+			$userdata=getSingleUser($uid);
+			if(md5($uid)==$uhash){
+				genericSingleUpdate("users","activationstatus","active","id","$uid");
+				genericSingleUpdate("users","activationdeadline","0000-00-00","id","$uid");
+			}
+			header('location:../index.php?t=actiavtionsuccess');
+		}else{
+			header('location:../index.php?t=actiavtionerror');
+		}
 	}
 }else if($dhash=="false"){
 	echo $dhasherrout;

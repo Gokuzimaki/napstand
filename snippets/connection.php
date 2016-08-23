@@ -2033,10 +2033,30 @@ function getSingleLGA($id){
   $row=mysql_fetch_assoc($run);
   return $row;
 } 
-function generateMailMarkup($from,$to,$title,$content,$footer,$type){
+function generateMailMarkup($from,$to,$title,$content,$footer,$type=""){
   include('globalsmodule.php');
   $row=array();
   $phpmailermarkup='';
+  $logoout="";
+  $logoalt="";
+  $parentheader="Muyiwa Afolabi's Website";
+  $toplstyle="";
+  $innerstyle=file_get_contents("../stylesheets/ink.css");
+  if($host_addr=="http://localhost/napstand/"){
+      $toplstyle='<link rel="stylesheet" href="'.$host_addr.'stylesheets/ink.css">';
+      $innerstyle="";
+  }
+  /*if($type=="fjc"){
+    $logoout="fjclogo.png";
+    $logoalt="Frontiers Job-Connect";
+    $parentheader="Frontiers Job-Connect";
+  }else if($type=="fc"){
+    $logoout="frontierslogoalbumart.jpg";
+    $logoalt="Frontiers Consulting";
+    $parentheader="Muyiwa Afolabi's Website";
+  }else{
+
+  }*/
   $rowmarkup='
       <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
       <html xmlns="http://www.w3.org/1999/xhtml">
@@ -2131,7 +2151,7 @@ function generateMailMarkup($from,$to,$title,$content,$footer,$type){
           <tbody>
             <tr>
              <td class="heading">
-              <img src="'.$host_addr.'images/napstand.png"  alt="Napstand" width="220" height="" style="display: inline-block;" /><br>
+              <img src="'.$host_addr.'images/napstandlogo2.png"  alt="Napstand" width="220" height="" style="display: inline-block;" /><br>
              </td>
             </tr>
             <tr>

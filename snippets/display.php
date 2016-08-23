@@ -596,15 +596,15 @@ if($displaytype==""){
 		        <li><strong>Phone 1: </strong>0701-682-9254</li>
 		        <li><strong>Phone 2: </strong>0802-916-3891</li>
 		        <li><strong>Phone 3: </strong>0803-370-7244</li>
-		        <li><strong>Email: </strong><a href="mailto:info@adsbounty.com">info@adsbounty.com</a></li>
+		        <li><strong>Email: </strong><a href="mailto:info@napstand.com">info@napstand.com</a></li>
 		    </ul>
 	  	';
-	  	$emailout=generateMailMarkUp("Adsbounty.com",$data['email'],"$title","$content","$footer","");
+	  	$emailout=generateMailMarkUp("napstand.com",$data['email'],"$title","$content","$footer","");
 	    // echo $emailout['rowmarkup'];
 	    $toemail=$data['email'];
 	    $headers = "MIME-Version: 1.0" . "\r\n";
 	    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-	    $headers .= 'From: <no-reply@adsbounty.com>' . "\r\n";
+	    $headers .= 'From: <no-reply@napstand.com>' . "\r\n";
 	    $subject="A data request has been made";
 	    if($host_email_send===true){
 	      if(mail($toemail,$subject,$emailout['rowmarkup'],$headers)){
@@ -862,15 +862,15 @@ if($displaytype==""){
 		        <li><strong>Phone 1: </strong>0701-682-9254</li>
 		        <li><strong>Phone 2: </strong>0802-916-3891</li>
 		        <li><strong>Phone 3: </strong>0803-370-7244</li>
-		        <li><strong>Email: </strong><a href="mailto:info@adsbounty.com">info@adsbounty.com</a></li>
+		        <li><strong>Email: </strong><a href="mailto:info@napstand.com">info@napstand.com</a></li>
 		    </ul>
 	  	';
-	  	$emailout=generateMailMarkUp("Adsbounty.com",$udata['email'],"$title","$content","$footer","");
+	  	$emailout=generateMailMarkUp("napstand.com",$udata['email'],"$title","$content","$footer","");
 	    // echo $emailout['rowmarkup'];
 	    $toemail=$udata['email'];
 	    $headers = "MIME-Version: 1.0" . "\r\n";
 	    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
-	    $headers .= 'From: <no-reply@adsbounty.com>' . "\r\n";
+	    $headers .= 'From: <no-reply@napstand.com>' . "\r\n";
 	    $subject="Here is your reward";
 	    if($host_email_send===true){
 	      if(mail($toemail,$subject,$emailout['rowmarkup'],$headers)){
