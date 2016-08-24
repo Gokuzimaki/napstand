@@ -95,13 +95,12 @@ if($dhash=="true"||$displaytype=="forceuserreset"){
 		if($test!==""){
 			$username=mysql_real_escape_string($_GET['username']);
 			$password=mysql_real_escape_string($_GET['password']);
-			$password=mysql_real_escape_string($_GET['password']);
 			
 		}else if ($test=="") {
 			# code...
 			$username=mysql_real_escape_string($_POST['username']);
 			$password=mysql_real_escape_string($_POST['password']);
-			$password=mysql_real_escape_string($_POST['']);
+
 		}
 		$iniquery="SELECT * FROM users WHERE email='$username' AND pword='$password' AND usertype='appuser'";
 		$inirun=mysql_query($iniquery)or die(mysql_error()." ".__LINE__);
