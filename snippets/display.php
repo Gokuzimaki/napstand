@@ -1592,11 +1592,11 @@ elseif ($displaytype=="viewsubscribers") {
 	$searchval=mysql_real_escape_string($_GET['searchval']);
 	$blogentryid=mysql_real_escape_string($_GET['blogid']);
 	if($searchval=="gwolcomments"){
-	$query="SELECT * FROM comments where blogentryid=$blogentryid order by id desc";
-	$adminoutput='NO comments were found under this blog post';
+		$query="SELECT * FROM comments where blogentryid=$blogentryid order by id desc";
+		$adminoutput='NO comments were found under this blog post';
 	}else{
-	$query="SELECT * FROM comments where fullname LIKE '%$searchval%' AND blogentryid=$blogentryid OR comment LIKE \"%$searchval%\" AND blogentryid=$blogentryid order by id desc";
-	$adminoutput='NO results were found for your search "<b>'.$searchval.'</b>" under this blog post';
+		$query="SELECT * FROM comments where fullname LIKE '%$searchval%' AND blogentryid=$blogentryid OR comment LIKE \"%$searchval%\" AND blogentryid=$blogentryid order by id desc";
+		$adminoutput='NO results were found for your search "<b>'.$searchval.'</b>" under this blog post';
 	}
 	// echo $query."over here";
 	$run=mysql_query($query)or die(mysql_error()." Line 287");

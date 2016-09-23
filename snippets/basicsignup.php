@@ -698,7 +698,6 @@ header('location:../admin/adminindex.php');
     echo"<p>Entry Invalidated, no parent content detected for this entry</p>";
   }
 
-
 }elseif($entryvariant=="createblogpost"){
 $blogtypeid=$_POST['blogtypeid'];
 //the id of the blog page when itgoes into the database

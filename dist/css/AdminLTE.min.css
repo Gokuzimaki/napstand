@@ -313,6 +313,12 @@ div[class*="content_image_loader"]{
 	display: inline-block;
 	margin-right: 5px;
 }
+div#mainPageModal {
+    background: transparent;
+    box-shadow: none;
+    border: 0px;
+    overflow: visible;
+}
 .mural_content_display .single_image_hold .img_options ul li a{
 	display: block;
 	color: #fefefe;

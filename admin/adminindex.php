@@ -207,113 +207,7 @@ if ($res === TRUE) {
 	          <ul class="sidebar-menu">
 		            <li class="header">MENU</li>
 	          		<?php echo $panelcontrolstyle['options']?>
-		            <!-- <li class="treeview">
-		              <a href="#" appdata-otype="mainlink" appdata-type="">
-		              <i class="fa fa-users"></i> <span>Admin Users</span> <i class="fa fa-angle-left pull-right"></i>
-		              </a>
-		              <ul class="treeview-menu">
-		                <li><a href="#Edit" appdata-otype="sublink" appdata-type="menulinkitem" appdata-name="newadminuser" appdata-crumb='Edit Admin Users' appdata-fa='<i class="fa fa-user"></i>' appdata-pcrumb="Admin User"><i class="fa fa-plus"></i> New</a></li>
-		                <li><a href="#Edit" appdata-otype="sublink" appdata-type="menulinkitem" appdata-name="editadminuser" appdata-crumb='Edit Admin Users' appdata-fa='<i class="fa fa-user"></i>' appdata-pcrumb="Admin User"><i class="fa fa-gear"></i> Edit</a></li>
-		              </ul>
-		            </li>
-		            <li class="treeview">
-		              <a href="#" appdata-otype="mainlink" appdata-type="">
-		              <i class="fa fa-sitemap"></i> <span>Content Category's</span> <i class="fa fa-angle-left pull-right"></i>
-		              </a>
-		              <ul class="treeview-menu">	
-		                <li><a href="#New" appdata-otype="sublink" appdata-type="menulinkitem" appdata-name="newcontentcategory" appdata-crumb='New Content Category' appdata-fa='<i class="fa fa-sitemap"></i>' appdata-pcrumb="Content Category"><i class="fa fa-plus"></i> New</a></li>
-		                <li><a href="#Edit" appdata-otype="sublink" appdata-type="menulinkitem" appdata-name="editcontentcategory" appdata-crumb='Edit Content Category' appdata-fa='<i class="fa fa-sitemap"></i>' appdata-pcrumb="Content Category"><i class="fa fa-gear"></i> Edit</a></li>
-		                <li><a href="#CategoryMurals" appdata-otype="sublink" appdata-type="menulinkitem" appdata-name="categorymurals" appdata-crumb='Create/Edit Murals' appdata-fa='<i class="fa fa-file-image-o"></i>' appdata-pcrumb="Content Category"><i class="fa fa-gear"></i> Create/Edit Mural</a></li>
-		              </ul>
-		            </li>
-		            <li class="treeview">
-		              <a href="#" appdata-otype="mainlink">
-		                <i class="fa fa-tasks"></i> <span>Content</span> <i class="fa fa-angle-left pull-right"></i>
-		              </a>
-		              <ul class="treeview-menu">
-		                <li><a href="#New" appdata-otype="sublink" appdata-type="menulinkitem" appdata-name="newparentcontent" appdata-crumb="New Parent Content" appdata-fa='<i class="fa fa-tasks"></i>' appdata-pcrumb="Content"><i class="fa fa-plus"></i> New Parent Content</a></li>
-		                <li><a href="#Edit" appdata-otype="sublink" appdata-type="menulinkitem" appdata-name="editparentcontentadmin" appdata-crumb="Edit Parent Content" appdata-fa='<i class="fa fa-tasks"></i>' appdata-pcrumb="Content"><i class="fa fa-gear"></i> Edit Parent Content</a></li>
-		                <li><a href="#Create/Edit Content Entries" appdata-otype="sublink" appdata-type="menulinkitem" appdata-name="createneditcontententries" appdata-crumb="Edit Content" appdata-fa='<i class="fa fa-tasks"></i>' appdata-pcrumb="Content"><i class="fa fa-gears"></i> Create/Edit Content Entries</a></li>
-		                <li><a href="#Statistics" appdata-otype="sublink" appdata-type="menulinkitem" appdata-name="viewcontentstatistics" appdata-crumb='Content Stats' appdata-fa='<i class="fa fa-sitemap"></i>' appdata-pcrumb="Content"><i class="fa fa-pie-chart"></i> Content Stats</a></li>
-		              </ul>
-		            </li>
-		            <li class="treeview">
-		              <a href="#" appdata-otype="mainlink" appdata-type="">
-		              	<i class="fa fa-briefcase"></i> <span>Clients</span> <i class="fa fa-angle-left pull-right"></i>
-		              </a>
-		              <ul class="treeview-menu">
-		                <li><a href="#New" appdata-otype="sublink" appdata-type="menulinkitem" appdata-name="newclient" appdata-crumb='New Client' appdata-fa='<i class="fa fa-briefcase"></i>' appdata-pcrumb="Client"><i class="fa fa-plus"></i> New</a></li>
-		                <li><a href="#Edit" appdata-otype="sublink" appdata-type="menulinkitem" appdata-name="editclient" appdata-crumb='Edit Client' appdata-fa='<i class="fa fa-briefcase"></i>' appdata-pcrumb="Client"><i class="fa fa-gear"></i> Edit</a></li>
-		              </ul>
-		            </li>
-		            <li class="treeview">
-		              <a href="#" appdata-otype="mainlink" appdata-type="">
-		              <i class="fa fa-user"></i> <span>Users</span> <i class="fa fa-angle-left pull-right"></i>
-		              </a>
-		              <ul class="treeview-menu">
-		                <li><a href="#New" appdata-otype="sublink" appdata-type="menulinkitem" appdata-name="createuseradmin" appdata-crumb='New User' appdata-fa='<i class="fa fa-user"></i>' appdata-pcrumb="User"><i class="fa fa-plus"></i> New</a></li>
-		                <li><a href="#Edit" appdata-otype="sublink" appdata-type="menulinkitem" appdata-name="edituseradmin" appdata-crumb='Edit User' appdata-fa='<i class="fa fa-user"></i>' appdata-pcrumb="User"><i class="fa fa-gear"></i> Edit</a></li>
-		              </ul>
-		            </li>
-		            <li class="treeview">
-		              <a href="#" appdata-otype="mainlink" appdata-type="">
-		              <i class="fa fa-user"></i> <span>App Users</span> <i class="fa fa-angle-left pull-right"></i>
-		              </a>
-		              <ul class="treeview-menu">
-		                <li><a href="#New" appdata-otype="sublink" appdata-type="menulinkitem" appdata-name="newappuser" appdata-crumb='New App User' appdata-fa='<i class="fa fa-user"></i>' appdata-pcrumb="App Users"><i class="fa fa-plus"></i> New</a></li>
-		                <li><a href="#Edit" appdata-otype="sublink" appdata-type="menulinkitem" appdata-name="editappuser" appdata-crumb='Edit App User' appdata-fa='<i class="fa fa-user"></i>' appdata-pcrumb="App Users"><i class="fa fa-gear"></i> Edit</a></li>
-		              </ul>
-		            </li>
 		            
-		            <li class="treeview">
-		              <a href="#" appdata-otype="mainlink">
-		                <i class="fa fa-question"></i> <span>FAQ</span> <i class="fa fa-angle-left pull-right"></i>
-		              </a>
-		              <ul class="treeview-menu">
-		                <li><a href="#New" appdata-otype="sublink" appdata-type="menulinkitem" appdata-name="newfaq" appdata-crumb="New FAQ" appdata-fa='<i class="fa fa-question"></i>' appdata-pcrumb="Frequently Asked Questions"><i class="fa fa-plus"></i> New FAQ</a></li>
-		                <li><a href="#Edit" appdata-otype="sublink" appdata-type="menulinkitem" appdata-name="editfaq" appdata-crumb="Edit FAQ" appdata-fa='<i class="fa fa-question"></i>' appdata-pcrumb="Frequently Asked Questions"><i class="fa fa-gear"></i> Edit FAQ</a></li>
-		              </ul>
-		            </li> -->
-		            <!-- <li class="treeview">
-		              <a href="#" appdata-otype="mainlink" >
-		                <i class="fa fa-sliders"></i> <span>Blog Type</span> <i class="fa fa-angle-left pull-right"></i>
-		              </a>
-		              <ul class="treeview-menu">
-		                <li><a href="#New" appdata-otype="sublink" appdata-type="menulinkitem" appdata-name="newblogtype" appdata-fa='<i class="fa fa-sliders"></i>' appdata-pcrumb="Blog Type"><i class="fa fa-plus"></i> New</a></li>
-		                <li><a href="#Edit" appdata-otype="sublink" appdata-type="menulinkitem" appdata-name="editblogtype" appdata-fa='<i class="fa fa-sliders"></i>' appdata-pcrumb="Blog Type"><i class="fa fa-gear"></i> Edit</a></li>
-		              </ul>
-		            </li>
-		            <li class="treeview">
-		              <a href="#" appdata-otype="mainlink" >
-		                <i class="fa fa-sitemap"></i> <span>Blog Category</span> <i class="fa fa-angle-left pull-right"></i>
-		              </a>
-		              <ul class="treeview-menu">
-		                <li><a href="#New" appdata-otype="sublink" appdata-type="menulinkitem" appdata-name="newblogcategory" appdata-fa='<i class="fa fa-sitemap"></i>' appdata-pcrumb="Blog Category"><i class="fa fa-plus"></i> New</a></li>
-		                <li><a href="#Edit" appdata-otype="sublink" appdata-type="menulinkitem" appdata-name="editblogcategory" appdata-fa='<i class="fa fa-sitemap"></i>' appdata-pcrumb="Blog Category"><i class="fa fa-gear"></i> Edit</a></li>
-		              </ul>
-		            </li>
-		            <li class="treeview">
-		              <a href="#" appdata-otype="mainlink" >
-		                <i class="fa fa-newspaper-o"></i> <span>Blog Post</span> <i class="fa fa-angle-left pull-right"></i>
-		              </a>
-		              <ul class="treeview-menu">
-		                <li><a href="#New" appdata-otype="sublink" appdata-type="menulinkitem" appdata-name="newblogpost" appdata-fa='<i class="fa fa-text"></i>' appdata-pcrumb="Blog Post"><i class="fa fa-plus"></i> New</a></li>
-		                <li><a href="#Edit" appdata-otype="sublink" appdata-type="menulinkitem" appdata-name="editblogposts" appdata-fa='<i class="fa fa-text"></i>' appdata-pcrumb="Blog Post"><i class="fa fa-gear"></i> Edit</a></li>
-		              </ul>
-		            </li>
-		            <li class="treeview">
-		              <a href="#" appdata-otype="mainlink" >
-		                <i class="fa fa-comment-o"></i> <span>Comments</span> 
-			                <?php echo $fullcomout;?>
-		                <i class="fa fa-angle-left pull-right"></i>
-		              </a>
-		              <ul class="treeview-menu">
-		                <li><a href="#AllComments" appdata-otype="sublink" appdata-type="menulinkitem" appdata-name="allcomments" appdata-fa='<i class="fa fa-comments-o"></i>' appdata-pcrumb="Comments"><i class="fa fa-cubes"></i> All</a></li>
-		                <li><a href="#ActiveComments" appdata-otype="sublink" appdata-type="menulinkitem" appdata-name="activecomments" appdata-fa='<i class="fa fa-comments-o"></i>' appdata-pcrumb="Comments"><i class="fa fa-asterisk"></i> Active</a></li>
-		                <li><a href="#PendingComments" appdata-otype="sublink" appdata-type="menulinkitem" appdata-name="inactivecomments" appdata-fa='<i class="fa fa-comments-o"></i>' appdata-pcrumb="Comments"><i class="fa fa-clock-o"></i> Pending</a></li>
-		                <li><a href="#EDisabledcomments" appdata-otype="sublink" appdata-type="menulinkitem" appdata-name="disabledcomments" appdata-fa='<i class="fa fa-comments-o"></i>' appdata-pcrumb="Comments"><i class="fa fa-ban"></i> Disabled</a></li>
-		              </ul>
-		            </li> -->
 		            <li class="treeview">
 		              <a href="../snippets/logout.php?type=admin" appdata-otype="mainlink" appdata-type="menulinkitem" appdata-name="logout">
 		                <i class="fa fa-sign-out"></i> <span>Logout</span>
@@ -391,45 +285,46 @@ if ($res === TRUE) {
 	            		}
 	            		echo $outimgs;*/
 	            		$indicesServer = array('PHP_SELF', 
-						'argv', 
-						'argc', 
-						'GATEWAY_INTERFACE', 
-						'SERVER_ADDR', 
-						'SERVER_NAME', 
-						'SERVER_SOFTWARE', 
-						'SERVER_PROTOCOL', 
-						'REQUEST_METHOD', 
-						'REQUEST_TIME', 
-						'REQUEST_TIME_FLOAT', 
-						'QUERY_STRING', 
-						'DOCUMENT_ROOT', 
-						'HTTP_ACCEPT', 
-						'HTTP_ACCEPT_CHARSET', 
-						'HTTP_ACCEPT_ENCODING', 
-						'HTTP_ACCEPT_LANGUAGE', 
-						'HTTP_CONNECTION', 
-						'HTTP_HOST', 
-						'HTTP_REFERER', 
-						'HTTP_USER_AGENT', 
-						'HTTPS', 
-						'REMOTE_ADDR', 
-						'REMOTE_HOST', 
-						'REMOTE_PORT', 
-						'REMOTE_USER', 
-						'REDIRECT_REMOTE_USER', 
-						'SCRIPT_FILENAME', 
-						'SERVER_ADMIN', 
-						'SERVER_PORT', 
-						'SERVER_SIGNATURE', 
-						'PATH_TRANSLATED', 
-						'SCRIPT_NAME', 
-						'REQUEST_URI', 
-						'PHP_AUTH_DIGEST', 
-						'PHP_AUTH_USER', 
-						'PHP_AUTH_PW', 
-						'AUTH_TYPE', 
-						'PATH_INFO', 
-						'ORIG_PATH_INFO') ; 
+							'argv', 
+							'argc', 
+							'GATEWAY_INTERFACE', 
+							'SERVER_ADDR', 
+							'SERVER_NAME', 
+							'SERVER_SOFTWARE', 
+							'SERVER_PROTOCOL', 
+							'REQUEST_METHOD', 
+							'REQUEST_TIME', 
+							'REQUEST_TIME_FLOAT', 
+							'QUERY_STRING', 
+							'DOCUMENT_ROOT', 
+							'HTTP_ACCEPT', 
+							'HTTP_ACCEPT_CHARSET', 
+							'HTTP_ACCEPT_ENCODING', 
+							'HTTP_ACCEPT_LANGUAGE', 
+							'HTTP_CONNECTION', 
+							'HTTP_HOST', 
+							'HTTP_REFERER', 
+							'HTTP_USER_AGENT', 
+							'HTTPS', 
+							'REMOTE_ADDR', 
+							'REMOTE_HOST', 
+							'REMOTE_PORT', 
+							'REMOTE_USER', 
+							'REDIRECT_REMOTE_USER', 
+							'SCRIPT_FILENAME', 
+							'SERVER_ADMIN', 
+							'SERVER_PORT', 
+							'SERVER_SIGNATURE', 
+							'PATH_TRANSLATED', 
+							'SCRIPT_NAME', 
+							'REQUEST_URI', 
+							'PHP_AUTH_DIGEST', 
+							'PHP_AUTH_USER', 
+							'PHP_AUTH_PW', 
+							'AUTH_TYPE', 
+							'PATH_INFO', 
+							'ORIG_PATH_INFO') 
+	            		; 
 
 						/*echo '<table cellpadding="10">' ; 
 						foreach ($indicesServer as $arg) { 

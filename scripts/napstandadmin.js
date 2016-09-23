@@ -1869,8 +1869,8 @@ $('.generic_ajax_pages_hold._top, .generic_ajax_pages_hold._bottom').bootpag({
     dataipp:15,
     datavariant:true,
     datapages:[15,25,40,60],
-    datatarget:'div.generic_ajax_pages_hold div.page_content_out_hold',
-    dataitemloader:'div.content_image_loader_bootpag',
+    datatarget:'.generic_ajax_pages_hold .page_content_out_hold',
+    dataitemloader:'.content_image_loader_bootpag',
     activeClass: 'active',
     disabledClass: 'disabled',
     nextClass: 'next',
@@ -1882,6 +1882,8 @@ $('.generic_ajax_pages_hold._top, .generic_ajax_pages_hold._bottom').bootpag({
     var curtimestamp=parseInt(event.timeStamp);
     var doajax="";
     var timetest=0;
+    // stop bootpag from running twice for dual pagination elements
+    // on the same target
     if(timestamp==0){
         timestamp=curtimestamp;
     }else{

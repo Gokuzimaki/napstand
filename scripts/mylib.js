@@ -1794,12 +1794,28 @@ function raiseMainModal(title, content, failsuccess,show=""){
         var outclass='bg-red-active color-red bg-green-active color-darkgreen';
         var inclass='bg-yellow-active';
       }
+      // check to see if the modal element exists, otherwise create it
+      var mainmodal="";
+      var mainmodaltitle="";
+      var mainmodalbody="";
+      var mainmodalcontent="";
+      if(document.getElementById("mainPageModal")===null||document.getElementById("mainPageModal")){
+        var fullmodb=$('<!-- General Modal display section -->      <div id="mainPageModal" class="modal fade" data-backdrop="false" data-show="true" data-role="dialog">        <div class="modal-dialog">            <div class="modal-content">                <div class="modal-header">                    <button type="button" class="close" data-dismiss="modal"><i class="fa fa-times"></i></button>                    <h4 class="modal-title">Message</h4>                </div>                <div class="modal-body">                </div>                <div class="modal-footer">                    <button type="button" class="btn btn-success" data-dismiss="modal">Close</button>                </div>            </div>        </div>      </div>');
+        $('body').append(fullmodb);
+      }
+
+      mainmodal=$("#mainPageModal");
+      mainmodaltitle=$("#mainPageModal .modal-header .modal-title");
+      mainmodalbody=$("#mainPageModal .modal-body");
+      mainmodalcontent=$("#mainPageModal .modal-content");
+      
       // raise the success modal
-        $("#mainPageModal .modal-header .modal-title").html(title);
-        $("#mainPageModal .modal-body").html(content);
-        $("#mainPageModal .modal-content").removeClass(outclass).addClass(inclass);
+      mainmodaltitle.html(title);
+      mainmodalbody.html(content);
+      mainmodalcontent.removeClass(outclass).addClass(inclass);
+      
       if(show=="true"||show==""){
-        $("#mainPageModal").modal({show: true});
+        mainmodal.modal({show: true});
       }else if(show=="noclose"){
         
       }
