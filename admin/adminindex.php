@@ -284,6 +284,10 @@ if ($res === TRUE) {
 	            			
 	            		}
 	            		echo $outimgs;*/
+	            		/*eval('
+	            				isset($_printme)?$_printme=$_printme:$_printme="I certainly dont exist do i";
+	            			');*/
+	            		// echo $_printme;
 	            		$indicesServer = array('PHP_SELF', 
 							'argv', 
 							'argc', 

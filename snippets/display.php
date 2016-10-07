@@ -1201,7 +1201,6 @@ elseif ($displaytype=="viewsubscribers") {
 	$outs=paginatejavascript($curquery,$typeout);
 	if($typeout==""){
 		echo $outs['pageout'];
-		
 	}else if($typeout=="bootpag"){
 		$resultcount=$outs['num_pages'];
 		$msg="";

@@ -7,7 +7,7 @@
 		$row=array();
 
 		$query="SELECT * FROM contentcategories where id=$id";
-		$run=mysql_query($query)or die(mysql_error()." Line 6 ".__LINE__);
+		$run=mysql_query($query)or die(mysql_error()." Line ".__LINE__);
 		$numrows=mysql_num_rows($run);
 		
 		$row=mysql_fetch_assoc($run);
@@ -523,6 +523,8 @@
 		$row=array();
 		$usereditid="";
 		$extraquery="";
+		$defaultquery="SELECT * FROM parentcontent WHERE status='active'";
+		$defaultorder="ORDER BY contenttitle";
 		$concat=$viewer=="admin"?"WHERE":"AND";
 		if($type=='user'){
 			$extraquery="$concat userid=$typeid";
@@ -554,6 +556,27 @@
 			}
 			$extraquery="$concat contenttypeid='$typeid' $subcontent";
 		}
+
+		if($type=='latestparentsincat'||$type=='latestparentsetincatfull'){
+			$subcontent="";
+			$typeid=$typeid[1];
+			$typedataout="contenttypeid='$typeid'";
+			$subconcat="AND";
+			if($type=="latestparentsincat"){
+				// this section handles the mobile apis catidtwo call under
+				// "fetchcategoryusers"
+			}else if($type=="latestparentsetincatfull"){
+				$typedataout="";
+			}
+				$subconcat="";
+				$concat="";
+			$defaultquery="SELECT * FROM parentcontent AS mainq";
+			// $subcontent="$subconcat EXISTS(SELECT * FROM contententries AS subq WHERE subq.parentid=mainq.id AND subq.publishstatus='published' GROUP BY parentid ORDER BY id DESC) AND status='active' ORDER BY subq.releasedate DESC";	
+			$subcontent="inner join (select * from contententries ORDER BY id DESC) subq WHERE subq.parentid=mainq.id AND subq.publishstatus='published' GROUP BY subq.parentid ORDER BY subq.releasedate DESC";
+			$defaultorder="";
+			$extraquery="$concat $typedataout $subcontent";
+		}
+		// for backward and forward traversal of data-set requests
 		if($type=="pullfromlastentrysetparentcontent"||$type=="pullfromnextentrysetparentcontent"){
 			$subcontent="";
 			$hold=$typeid;
@@ -561,9 +584,34 @@
 			$typeid=$hold[1];
 			$lastid=$hold[2];
 			$nextid=$hold[3];
-			$lncontent=$type=="pullfromlastentrysetparentcontent"?"id<$lastid":"id>$nextid";
-			$extraquery="$concat contenttypeid='$typeid' $subcontent AND $lncontent";
-			
+			$subreqtype=count($hold)>4?$hold[4]:"";
+			$subreqtype==""?$typedataout="contenttypeid='$typeid'":$typedataout="";
+			$lncontent=$type=="pullfromlastentrysetparentcontent"?" AND id<$lastid":" AND id>$nextid";
+			if($subreqtype=="catidtwo"){
+
+				// this section handles the mobile apis catidtwo call under
+				// "fetchcategoryusers"
+				$extraquery="$concat $typedataout $subcontent $lncontent";
+			}else if($subreqtype=="latestparentsetincatfull"||$subreqtype=="latestparentsetincat"){
+
+				// this section handles the mobile apis catidtwo call under
+				// "fetchcategoryusers"
+				$typedataout=$subreqtype=="latestparentsetincat"?"WHERE catid='$typeid'":"";
+				$subcontent=$subreqtype=="latestparentsetincat"?" AND status='active' GROUP BY userid ":" status='active' GROUP BY userid ";
+				// $subcontent=" status='active' GROUP BY userid ";
+				$subconcat="";
+				$concat="";
+				$defaultquery="SELECT * FROM parentcontent AS mainq ";
+				$lncontent=$type=="pullfromlastentrysetparentcontent"?" AND subq.id<$lastid":" AND subq.id>$nextid";
+				// $subcontent="$subconcat EXISTS(SELECT * FROM contententries AS subq WHERE subq.parentid=mainq.id AND subq.publishstatus='published' GROUP BY parentid ORDER BY id DESC) AND status='active' ORDER BY subq.releasedate DESC";	
+				$subcontent="inner join (select * from contententries $typedataout ORDER BY id DESC) subq WHERE subq.parentid=mainq.id AND subq.publishstatus='published' $lncontent GROUP BY subq.parentid ORDER BY subq.releasedate DESC";
+				
+				// since the query here is peculiar in that it takes over the entire main query build process
+				// it is important that we eliminate any variables that could cause problems later as the ones below
+				$lncontent="";
+				$defaultorder="";
+				$extraquery="$concat $subcontent $lncontent";
+			}
 		}
 
 		if ($type=="napstandonly") {
@@ -604,8 +652,8 @@
 			$rowmonitor['chiefquery']="SELECT * FROM parentcontent $extraquery";
 		}else if ($viewer=="viewer") {
 			# code...
-			$query="SELECT * FROM parentcontent WHERE status='active' $extraquery ORDER BY contenttitle $limit";
-			$rowmonitor['chiefquery']="SELECT * FROM parentcontent WHERE status='active' $extraquery";
+			$query="$defaultquery $extraquery $defaultorder $limit";
+			$rowmonitor['chiefquery']="$defaultquery $extraquery $defaultorder";
 		}else if(is_array($viewer)){
 				$subtype=$viewer[0];
 				$searchval=$viewer[1];
@@ -628,7 +676,7 @@
 				}
 		}
 		// echo $query."<br>";
-		$run=mysql_query($query)or die(mysql_error()." Real number:".__LINE__." old number  1041");
+		$run=mysql_query($query)or die(mysql_error()." Real number:".__LINE__." <br> $query");
 		$numrows=mysql_num_rows($run);
 		$adminoutput='<td colspan="100%">No entries yet</td>';
 		$adminoutputtwo='No entries yet';
@@ -638,23 +686,35 @@
 		$catdata=array();
 		$lastid=0;
 		$nextid=0;
+		$lastidtwo=0;
+		$nextidtwo=0;
 		$counter=0;
 		if($numrows>0){
 			$adminoutput="";
 			$adminoutputthree="";
 			while ($row=mysql_fetch_assoc($run)) {
 				# code...
-				$lastid=$lastid==0||$row['id']<$lastid?$row['id']:$lastid=$lastid;
-				$nextid=$row['id']>$nextid?$row['id']:$nextid=$nextid;
-				$contentcategorydata=getSingleParentContent($row['id'], $usereditid);
+				$id=isset($row['parentid'])?$row['parentid']:$row['id'];
+				$lastid=$lastid==0||$id<$lastid?$id:$lastid=$lastid;
+				$nextid=$id>$nextid?$id:$nextid=$nextid;
+				$contentcategorydata=getSingleParentContent($id, $usereditid);
 				$adminoutput.=$contentcategorydata['adminoutput'];
 				$selectionoutput.=$contentcategorydata['selectionoutput'];
-				$catdata[]=$contentcategorydata['catdata'];
+				$catdata[]=isset($row['parentid'])?$row:$contentcategorydata['catdata'];
+				if(isset($row['parentid'])){
+					$lastidtwo=$lastidtwo==0||$row['parentid']<$lastidtwo?$row['parentid']:$lastidtwo=$lastidtwo;
+					$nextidtwo=$row['parentid']>$nextidtwo?$row['parentid']:$nextidtwo=$nextidtwo;
+				}
 				$counter++;
 			}
 		}
-		$catdata['lastid']=$lastid;
-		$catdata['nextid']=$nextid;
+		if(isset($row['parentid'])){
+			$catdata['lastid']=$lastidtwo;
+			$catdata['nextid']=$nextidtwo;
+		}else{
+			$catdata['lastid']=$lastid;
+			$catdata['nextid']=$nextid;
+		}
 		$row['numrows']=$numrows;
 		$row['rowmonitor']=$rowmonitor['chiefquery'];
 		$outs=paginatejavascript($rowmonitor['chiefquery']);		
@@ -808,7 +868,7 @@
 						if($img_count==1){
 							$firstpage= array(
 											'largecover' => $host_addr."$originalimage",
-											'mediumcover' => $host_addr."$host_addr$medimage",
+											'mediumcover' => $host_addr."$medimage",
 											'thumbcover' => $host_addr."$thumbimage",
 										);
 							$firstoriginalimage=$host_addr.$originalimage;
@@ -1353,7 +1413,10 @@
 		// transview forces a purchased content view for the appuser
 		$row=array();	
 		$extraquery="";
+		$defaultquery="SELECT * FROM contententries";
+		$defaultorder="ORDER BY id DESC";
 		$concat=$viewer=="admin"?"WHERE":"AND";
+		$subconcat=$viewer=="admin"?"WHERE":"AND";
 		$subquery="";
 		$uid="";
 		$lastid=0;
@@ -1363,7 +1426,7 @@
 			$appuserstatcontrolextra="(status='active' OR status='inactive')";
 			
 		}else{*/
-			$appuserstatcontrolextra="status='active'";
+			$appuserstatcontrolextra="WHERE status='active'";
 
 		/*}*/
 		if(is_array($typeid)){
@@ -1374,7 +1437,12 @@
 			$uid=isset($hold[3])?$hold[3]:"";
 			$lastid=isset($hold[4])?$hold[4]:0;
 			$nextid=isset($hold[5])?$hold[5]:0;
+			$extraval=isset($hold[6])?$hold[6]:"";
 		}
+		// this varaible controls the data for parentid based selecction
+		// the pdataout variable can be used to stop the query from being run on the parentid entry
+		// in the event of pulling data in a group set format
+		$pdataout="parentid='$typeid'";
 		if($cattype=="published"||$cattype=="dontpublish"||$cattype=="scheduled"){
 			$subquery=" AND publishstatus='$cattype'";
 			$singletotal="|$cattype|$singletotal";
@@ -1385,16 +1453,48 @@
 			$singletotal="||$singletotal";
 
 		}
-
+		
 		if(($cattype=="pullfromlastentryset"||$cattype=="pullfromnextentryset")&&$appuserid>0){
+			// sorts through data using nextid and lastid as markers for traversal
+			// makes use of the extraval variable to run a subset manipulation on the
+			// subquery or defaultorder value variable
 			$lncontent=$cattype=="pullfromlastentryset"?"id<$lastid":"id>$nextid";
-			$subquery.="  AND publishstatus='published' AND $lncontent";
+			if($extraval!==""){
+				if($extraval=="latestparentsetincat"||$extraval=="latestparentsetincatfull"){
+					$groupee=$extraval=="latestparentsetincat"?" WHERE catid='$typeid' AND publishstatus='published' AND $lncontent":" WHERE publishstatus='published' AND $lncontent";
+					$defaultquery="SELECT * FROM (select * from contententries $groupee ORDER BY id DESC) subq GROUP BY subq.parentid ORDER BY subq.id DESC";
+					$extraquery="";
+					$subquery="";
+					$defaultorder="";
+					$appuserstatcontrolextra="";
+				}
+			}else{
+				$subquery.="  AND publishstatus='published' AND $lncontent";
+				
+			}
+		}
+
+		if($type=="fetchparentcontentlist"){
+			// pull all new parentcontent contententries by grouping the parentcontent
+			// and sorting the data according to the latest entry either by category or 
+			// as is
+			if($extraval=="latestparentsetincat"||$extraval=="latestparentsetincatfull"){
+				$pdataout="";
+				$groupee=$extraval=="latestparentsetincat"?" WHERE catid='$typeid'":"";
+				$appuserstatcontrolextra="";
+				$defaultquery="SELECT * FROM (select * from contententries $groupee ORDER BY id DESC) subq WHERE subq.status='active' GROUP BY subq.parentid ORDER BY subq.id DESC";
+				$extraquery="";
+				$subquery="";
+				$defaultorder="";
+				$appuserstatcontrolextra="";
+			}
+			$extraquery="";
 		}
 		if($type=='usertypeout'){
 			if (isset($_SESSION['userinapstand'])||isset($_SESSION['clientinapstand'])) {
 				# code...
 				$userid=isset($_SESSION['userinapstand'])?$_SESSION['userinapstand']:$_SESSION['clientinapstand'];
-				$extraquery="$concat userid=$userid AND parentid=$typeid $subquery ORDER BY id DESC";
+				$extraquery="$concat userid=$userid AND $pdataout $subquery ORDER BY id DESC";
 				$typeid="$userid|$typeid";
 			}
 		}
@@ -1405,20 +1505,25 @@
 			$typeid="$userid|$typeid";
 		}
 
-		if($type=='parentid'||$type=='parentiduseredit'){
+		if($type=='parentid'||$type=='parentiduseredit'||$type=='parentidtwo'){
 			$userid=$type=="parentiduseredit"?$uid:"";
 			$singletotal.=$type=="parentiduseredit"?"|".$uid:"";
-			$extraquery="$concat parentid='$typeid' $subquery ORDER BY id DESC";
+			$extraquery="$concat $pdataout $subquery ";
+			$type=="parentid"?$extraquery="":$extraquery=$extraquery;
 		}
 
 		if($type=='catcontentout'){
 			// gets all published data for a user under a category
-			$extraquery="$concat catid='$typeid' AND userid='$uid' AND publishstatus='published' $subquery ORDER BY id DESC";
+			$extraquery="$concat catid='$typeid' AND userid='$uid' AND publishstatus='published' $subquery";
+		}
+		if($type=='catcontentout'){
+			// gets all published data for a user under a category
+			$extraquery="$concat catid='$typeid' AND userid='$uid' AND publishstatus='published' $subquery";
 		}
 
 		if ($type=="napstandonly") {
 			# code...
-			$extraquery="$concat userid=0 $subquery ORDER BY id DESC";
+			$extraquery="$concat userid=0 $subquery";
 		}
 
 		if ($type=="napstandall") {
@@ -1461,8 +1566,8 @@
 				$rowmonitor['chiefquery']="SELECT * FROM contententries WHERE status='active' $extraquery";
 			}else if ($appuserid>0) {
 				# code...
-				$query="SELECT * FROM contententries WHERE $appuserstatcontrolextra $extraquery $limit";
-				$rowmonitor['chiefquery']="SELECT * FROM contententries WHERE $appuserstatcontrolextra $extraquery";
+				$query="$defaultquery $appuserstatcontrolextra $extraquery $defaultorder $limit";
+				$rowmonitor['chiefquery']="$defaultquery $appuserstatcontrolextra $extraquery $defaultorder ";
 			}else{
 				$query="SELECT * FROM contententries WHERE id=0";
 				$rowmonitor['chiefquery']="SELECT * FROM contententries WHERE id=0";
@@ -1470,7 +1575,7 @@
 		}
 
 		// echo $query;
-		$run=mysql_query($query)or die(mysql_error()." Line: ".__LINE__);
+		$run=mysql_query($query)or die(mysql_error()." Line: ".__LINE__."<br> $query");
 		$numrows=mysql_num_rows($run);
 		$adminoutput='<td colspan="100%">No entries yet</td>';
 		$adminoutputtwo='No entries yet';
@@ -1488,6 +1593,7 @@
 			$adminoutputthree="";
 			$edittotaldatasection="";
 			$counter=$numrows;
+			$incr=0;
 			while ($row=mysql_fetch_assoc($run)) {
 				# code...
 				$lastid=$lastid==0||$row['id']<$lastid?$row['id']:$lastid=$lastid;
@@ -1496,8 +1602,9 @@
 				$adminoutput.=$contententrydata['adminoutput'];
 				$edittotaldatasection.=$contententrydata['adminoutputtwo'];
 				$selectionoutput.=$contententrydata['selectionoutput'];
-				$catdata[]=$contententrydata['catdata'];
-				$catdatatwo[]=$contententrydata['catdatatwo'];
+				$catdata[$incr]=$contententrydata['catdata'];
+				$catdatatwo[$incr]=$contententrydata['catdatatwo'];
+				$incr++;
 				$counter--;
 			}
 		}

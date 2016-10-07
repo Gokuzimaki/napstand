@@ -365,6 +365,8 @@ if($dhash=="true"||$displaytype=="forceuserreset"){
 		}
 	}else if ($displaytype=="pullfromnextentrysetparentcontent"||$displaytype=="pullfromlastentrysetparentcontent") {
 		# code...	
+		// the extraval parameter is to make this endpoint flexible enough to accomodate any
+		// other data set requirements that need to make use of pagination pull.
 		if($test!==""){
 			$page=mysql_real_escape_string($_GET['page']);
 			$catid=mysql_real_escape_string($_GET['catid']);
@@ -372,6 +374,7 @@ if($dhash=="true"||$displaytype=="forceuserreset"){
 			$webuserid=mysql_real_escape_string($_GET['webuserid']);
 			$lastid=isset($_GET['lastid'])?mysql_real_escape_string($_GET['lastid']):0;
 			$nextid=isset($_GET['nextid'])?mysql_real_escape_string($_GET['nextid']):0;
+			$extraval=isset($_GET['extraval'])?mysql_real_escape_string($_GET['extraval']):"";
 		}else if ($test=="") {
 			# code...
 			$page=mysql_real_escape_string($_POST['page']);
@@ -380,6 +383,7 @@ if($dhash=="true"||$displaytype=="forceuserreset"){
 			$webuserid=mysql_real_escape_string($_POST['webuserid']);
 			$lastid=isset($_POST['lastid'])?mysql_real_escape_string($_POST['lastid']):0;
 			$nextid=isset($_POST['nextid'])?mysql_real_escape_string($_POST['nextid']):0;
+			$extraval=isset($_POST['extraval'])?mysql_real_escape_string($_POST['extraval']):"";
 		}
 		$prevlimit=($page*$host_app_pull_limit)-$host_app_pull_limit>0?($page*$host_app_pull_limit)-$host_app_pull_limit:0;
 		$nextlimit=$page*$host_app_pull_limit;
@@ -391,6 +395,7 @@ if($dhash=="true"||$displaytype=="forceuserreset"){
 		$typeid[1]=$catid;
 		$typeid[2]=$lastid;
 		$typeid[3]=$nextid;
+		$typeid[4]=$extraval;
 		$outs=getAllParentContent('viewer',$type,$typeid,$limit);
 		$totalpages=$outs['num_pages'];
 		$numrows=$outs['numrows'];
@@ -436,6 +441,53 @@ if($dhash=="true"||$displaytype=="forceuserreset"){
 				$scriptout='
 				<script>
 					var sdata='.json_encode(array("success"=>"true","msg"=>"$msg","userid"=>"$userid","catdata"=>$outs['catdata'],"page"=>"$page","totalmurals"=>"$totalpages")).';
+				</script>
+				';
+				echo $scriptout;
+			}	
+		}else{
+			$msg="Retrieval fail";
+			echo json_encode(array("success"=>"false","msg"=>"$msg","userid"=>"$userid","catdata"=>$outs['catdata'],"totalpages"=>"0"));
+
+		}
+	}else if ($displaytype=="fetchparentcontentlist") {
+		# code...
+		if($test!==""){
+			$page=mysql_real_escape_string($_GET['page']);
+			$userid=mysql_real_escape_string($_GET['userid']);
+			$catid=mysql_real_escape_string($_GET['catid']);
+			$extraval=isset($_GET['extraval'])?mysql_real_escape_string($_GET['extraval']):"latestparentsetincat";
+			
+		}else if ($test=="") {
+			# code...
+			$page=mysql_real_escape_string($_POST['page']);
+			$userid=mysql_real_escape_string($_POST['userid']);
+			$catid=mysql_real_escape_string($_POST['catid']);
+			$extraval=isset($_POST['extraval'])?mysql_real_escape_string($_POST['extraval']):"";
+		}
+		$prevlimit=($page*$host_app_pull_limit)-$host_app_pull_limit>0?($page*$host_app_pull_limit)-$host_app_pull_limit:0;
+		$nextlimit=$page*$host_app_pull_limit;
+		$limit="LIMIT $prevlimit,$nextlimit";
+		// echo $limit."<br>";
+		$type=$displaytype;
+		$typeid=array();
+		$typeid[0]=$catid;
+		$typeid[1]="";
+		$typeid[2]="";
+		$typeid[3]=$userid;
+		$typeid[4]="";
+		$typeid[5]="";
+		$typeid[6]=$extraval;
+		$outs=getAllContentEntries('viewer',$type,$typeid,$limit,"","",$userid);
+		$totalpages=$outs['num_pages'];
+		$numrows=$outs['numrows'];
+		if($numrows>0){
+			$msg="Retrieval Successful";
+		 	echo json_encode(array("success"=>"true","msg"=>"$msg","userid"=>"$userid","catdata"=>$outs['catdata'],"page"=>"$page","totalpages"=>"$totalpages"));
+		 	if($test!==""){
+				$scriptout='
+				<script>
+					var sdata='.json_encode(array("success"=>"true","msg"=>"$msg","userid"=>"$userid","catdata"=>$outs['catdata'],"page"=>"$page","totalpages"=>"$totalpages")).';
 				</script>
 				';
 				echo $scriptout;
@@ -539,6 +591,7 @@ if($dhash=="true"||$displaytype=="forceuserreset"){
 			$userid=mysql_real_escape_string($_GET['userid']);
 			$lastid=isset($_GET['lastid'])?mysql_real_escape_string($_GET['lastid']):0;
 			$nextid=isset($_GET['nextid'])?mysql_real_escape_string($_GET['nextid']):0;
+			$extraval=isset($_GET['extraval'])?mysql_real_escape_string($_GET['extraval']):"";
 		}else if ($test=="") {
 			# code...
 			$page=mysql_real_escape_string($_POST['page']);
@@ -546,6 +599,7 @@ if($dhash=="true"||$displaytype=="forceuserreset"){
 			$pcid=mysql_real_escape_string($_POST['pcid']);
 			$lastid=isset($_POST['lastid'])?mysql_real_escape_string($_POST['lastid']):0;
 			$nextid=isset($_POST['nextid'])?mysql_real_escape_string($_POST['nextid']):0;
+			$extraval=isset($_POST['extraval'])?mysql_real_escape_string($_POST['extraval']):"";
 		}
 		$prevlimit=($page*$host_app_pull_limit)-$host_app_pull_limit>0?($page*$host_app_pull_limit)-$host_app_pull_limit:0;
 		$nextlimit=$page*$host_app_pull_limit;
@@ -559,6 +613,7 @@ if($dhash=="true"||$displaytype=="forceuserreset"){
 		$typeid[3]="";
 		$typeid[4]=$lastid;
 		$typeid[5]=$nextid;
+		$typeid[6]=$extraval;
 		$outs=getAllContentEntries('viewer',$type,$typeid,$limit,"","",$userid);
 		$totalpages=$outs['num_pages'];
 		$numrows=$outs['numrows'];
