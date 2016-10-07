@@ -931,7 +931,8 @@
 					}
 					
 				}
-
+				$row['firstpage']=$firstpage;
+				$row['lastpage']=$lastpage;
 			/*end*/
 
 			// set all the hidden variables according to what they will be hiding

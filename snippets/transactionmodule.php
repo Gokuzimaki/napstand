@@ -184,6 +184,9 @@
 			$contentid=$row['contentid'];
 			$contenttype=$row['contenttype'];
 			$contentobjectnameout=""; //variable holding final content title info
+			$contentimageout=array(); //variable holding final content imagedata if available
+			$cfirstpage=array();
+			$clastpage=array();
 			if($contentid>0){
 				$cquery="SELECT * FROM $contenttype WHERE id='$contentid'";
 				$crun=mysql_query($cquery)or die(mysql_error()." Line ".__LINE__);
@@ -191,6 +194,8 @@
 				if($contenttype=="contententries"){
 					$objout=getSingleContentEntry($crow['id']);
 					$contentobjectnameout=$objout['titlerow'];
+					$cfirstpage=$objout['firstpage'];
+					$clastpage=$objout['lastpage'];
 				}
 			}
 		/*end*/
@@ -267,14 +272,16 @@
 							'contentid' => "$contentid",
 							'contenttype' => "$contenttype",
 							'contenttitle' => "$contentobjectnameout",
+							'firstpage' => $cfirstpage,
+							'lastpage' => $clastpage,
 							'email' => "$email",
 							'phonenumber' => "$phonenumber",
 							'amountpaid' => "$amountpaid",
 							'stublink' => $row['stublink'],
 							'fileid' => "$fileid",
 							'email' => "$email",
-							'coursedata' => $coursedata,
-							'coursesubjectdata' => $coursesubjectdata,
+							/*'coursedata' => $coursedata,
+							'coursesubjectdata' => $coursesubjectdata,*/
 							'transactionstatus' => "$voguestatus",
 							'transactiontime' => "$transactiontime",
 							'downloads' => "$downloads",
