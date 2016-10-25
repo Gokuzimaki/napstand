@@ -205,6 +205,7 @@ if($displaytype==""){
 	$outs=getAllContentEntries('admin',"parentid","$parentid","all","$pstat","loadalt");
 	$msg=$outs['altadminoutput'];
 	$resultcount=$outs['numrows'];
+	$query=$outs['query'];
  	echo json_encode(array("success"=>"true","msg"=>"$msg","resultcount"=>"$resultcount"));
 }else if($displaytype=="loadcontentseriesuser"){
 	$userid="";

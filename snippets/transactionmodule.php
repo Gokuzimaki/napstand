@@ -289,7 +289,6 @@
 							'enddate' => $row['enddate'],
 							'status' => $row['status'],
 						);
-
 		return $row;
 	}
 	function getAllTransactions($viewer,$limit,$type="",$appuserid="",$contentid=""){

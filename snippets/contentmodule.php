@@ -568,8 +568,8 @@
 			}else if($type=="latestparentsetincatfull"){
 				$typedataout="";
 			}
-				$subconcat="";
-				$concat="";
+			$subconcat="";
+			$concat="";
 			$defaultquery="SELECT * FROM parentcontent AS mainq";
 			// $subcontent="$subconcat EXISTS(SELECT * FROM contententries AS subq WHERE subq.parentid=mainq.id AND subq.publishstatus='published' GROUP BY parentid ORDER BY id DESC) AND status='active' ORDER BY subq.releasedate DESC";	
 			$subcontent="inner join (select * from contententries ORDER BY id DESC) subq WHERE subq.parentid=mainq.id AND subq.publishstatus='published' GROUP BY subq.parentid ORDER BY subq.releasedate DESC";
@@ -1423,6 +1423,7 @@
 		$lastid=0;
 		$nextid=0;
 		$userid="";
+		$extraval="";
 		/*if($transview=="true"){
 			$appuserstatcontrolextra="(status='active' OR status='inactive')";
 			
@@ -1440,7 +1441,7 @@
 			$nextid=isset($hold[5])?$hold[5]:0;
 			$extraval=isset($hold[6])?$hold[6]:"";
 		}
-		// this varaible controls the data for parentid based selecction
+		// this varaible controls the data for parentid based selection
 		// the pdataout variable can be used to stop the query from being run on the parentid entry
 		// in the event of pulling data in a group set format
 		$pdataout="parentid='$typeid'";
@@ -1510,7 +1511,7 @@
 			$userid=$type=="parentiduseredit"?$uid:"";
 			$singletotal.=$type=="parentiduseredit"?"|".$uid:"";
 			$extraquery="$concat $pdataout $subquery ";
-			$type=="parentid"?$extraquery="":$extraquery=$extraquery;
+			$type=="parentid"&&$extraval==""?$extraquery="$concat parentid=$typeid $subquery ORDER BY id DESC":$extraquery=$extraquery;
 		}
 
 		if($type=='catcontentout'){
@@ -1554,7 +1555,7 @@
 		$timenow=date("H:i:s");
 		// $singletotal!==""?$singletotal="|$singletotal":$singletotal;
 		$outputtype="contententries|$viewer|$type|$typeid".$singletotal;
-
+		// echo $extraquery;
 		if($viewer=="admin"){
 			$query="SELECT * FROM contententries $extraquery $limit";
 			$rowmonitor['chiefquery']="SELECT * FROM contententries $extraquery";
@@ -1617,6 +1618,7 @@
 		$row['catdatatwo']=$catdatatwo;
 		$row['numrows']=$numrows;
 		$row['rowmonitor']=$rowmonitor['chiefquery'];
+		$row['query']=$query;
 		$outs=paginatejavascript($rowmonitor['chiefquery']);
 		$row['num_pages']=$outs['num_pages'];		
 		$top='<table id="resultcontenttable" cellspacing="0">

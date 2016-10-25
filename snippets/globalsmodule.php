@@ -12,6 +12,9 @@
 	isset($host_sessionvar_prefix)?$host_sessionvar_prefix:$host_sessionvar_prefix="";
 	isset($host_sessionvar_suffix)?$host_sessionvar_suffix:$host_sessionvar_suffix="";
 	isset($host_favicon)?$host_favicon:$host_favicon="";
+	isset($curactive)?$curactive:$curactive="";
+	isset($prodnservcounter)?$prodnservcounter:$prodnservcounter="";
+	isset($rurladmin)?$rurladmin:$rurladmin="";
 	// default global variables for functions to use
 	global  $host_addr,
 			$host_logo_image,
@@ -24,5 +27,8 @@
 			$host_default_cover_image,
 			$host_sessionvar_prefix,
 			$host_sessionvar_suffix,
+			$curactive,
+			$prodnservcounter,
+			$rurladmin,
 			$host_favicon;
 ?>
