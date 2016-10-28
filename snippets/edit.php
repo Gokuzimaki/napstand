@@ -2260,7 +2260,7 @@ header('location:../admin/adminindex.php');
 	    }
 
 	    $uploadtype=mysql_real_escape_string($_POST['edituploadtype']);
-	  	echo $uploadtype.":Up type";
+	  	// echo $uploadtype.":Up type";
 	    // perform the content image uploads to the right directory
 	    if($uploadtype=="imageuploadedit"){
 	  
@@ -2493,7 +2493,6 @@ header('location:../admin/adminindex.php');
 			}else if($prevmainid>$mainid){
 				$uptq="UPDATE media SET mainid=mainid-1 WHERE mainid<$mainid AND mainid>$prevmainid AND ownerid='$ownerid'AND ownertype='$ownertype'AND maintype='$maintype'";
 				$uptr=mysql_query($uptq)or die(mysql_error()." Line ".__LINE__);
-				
 			}
 			genericSingleUpdate("media","mainid",$mainid,"id",$imgid);
 		}

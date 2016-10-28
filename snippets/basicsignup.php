@@ -1090,22 +1090,18 @@ $run=mysql_query($query)or die(mysql_error()." Line 58");
     VALUES('user','$fullname','$uhash','$gender','$maritalstatus','$dob','$state','$lga','$email','$password','$phoneout',CURRENT_DATE(),'$deadline')";
     // // echo $query;
     $run=mysql_query($query)or die(mysql_error()." Line 58");
-    $confirmationlink=$host_addr."signupin.php?t=activate&uh=".$uhash.".".$uid."&utm_email=".$email."";
-    $title="WELCOME TO ADSBOUNTY!!!";
+    // $confirmationlink=$host_addr."signupin.php?t=activate&uh=".$uhash.".".$uid."&utm_email=".$email."";
+    $title="WELCOME TO Napstand!!!";
     $content='
         <p style="text-align:left;">Hello there '.$fullname.',<br>
-        We at napstand are really happy you took your time to come on board our website, <br>
-        We hope to deliver a lovely user experience as you move on to partake in surveys which<br>
-        could help boost productivity in your favourite brand or help you obtain better services.<br>
-        Seeing as you have just registered, all thats left is for you to confirm you account by <a href="'.$confirmationlink.'">Clicking here</a><br>
-        and thats it. note that your account will remain active for the next 7 days without being activated</p>
+        We at Napstand are really happy you took your time to come on board our website, <br>
+        We hope to deliver a lovely user experience as you move on to increase your reading experience
+        with our plethora of books and magazines <br>
+        </p>
         <p style="text-align:right;">Thank You.</p>
     ';
     $footer='
       <ul>
-          <li><strong>Phone 1: </strong>0701-682-9254</li>
-          <li><strong>Phone 2: </strong>0802-916-3891</li>
-          <li><strong>Phone 3: </strong>0803-370-7244</li>
           <li><strong>Email: </strong><a href="mailto:info@napstand.com">info@napstand.com</a></li>
       </ul>
     ';
@@ -1166,10 +1162,10 @@ $run=mysql_query($query)or die(mysql_error()." Line 58");
     // // echo $query;
     $run=mysql_query($query)or die(mysql_error()." Line 58");
     $confirmationlink=$host_addr."signupin.php?t=activate&uh=".$uhash.".".$uid."&utm_email=".$email."";
-    $title="WELCOME TO ADSBOUNTY!!!";
+    $title="WELCOME TO NAPSTAND!!!";
     $content='
         <p style="text-align:left;">Hello there '.$fullname.',<br>
-        We at napstand are really happy you took your time to come on board our website, <br>
+        We at Napstand are really happy you took your time to come on board our website, <br>
         We hope to deliver a lovely user experience as you move on to partake in surveys which<br>
         could help boost productivity in your favourite brand or help you obtain better services.<br>
         You used the "<b>Part Registration</b>" form to signup, please note that to take full advantage of our platform, you might need to provide more information as time progresses. This

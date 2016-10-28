@@ -605,7 +605,7 @@ if($dhash=="true"||$displaytype=="forceuserreset"){
 		$nextlimit=$page*$host_app_pull_limit;
 		$limit="LIMIT $prevlimit,$nextlimit";
 		// echo $limit."<br>";
-		$type="parentidtwo";
+		$type="parentid";
 		$typeid=array();
 		$typeid[0]=$pcid;
 		$typeid[1]="$displaytype";
