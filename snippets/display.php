@@ -44,6 +44,58 @@ if($displaytype==""){
 	$outs=calenderOut($day,$month,$year,'',$data_target,$theme,'');
 	// echo $theme;
 	echo $outs['totaldaysout'];
+}else if($displaytype=="testemaildisplay"){
+	$email="gokuzimaki@gmail.com";
+	$fullname="Alazaki Domaino Suckor";
+	$title="WELCOME TO NAPSTAND!!!";
+    $sa[0]['socialtype']="facebook";
+    $sa[0]['socialdisplay']='style="display:none;"';
+    $sa[0]['socialurl']="##";
+    $sa[1]['socialtype']="twitter";
+    $sa[1]['socialdisplay']='';
+    $sa[1]['socialurl']="http://twitter.com/thenapstand";
+    $sa[2]['socialtype']="google";
+    $sa[2]['socialdisplay']='style="display:none;"';
+    $sa[2]['socialurl']="##";
+    $sa[3]['socialtype']="linkedin";
+    $sa[3]['socialdisplay']='style="display:none;"';
+    $sa[3]['socialurl']="##";
+    $sa[4]['socialtype']="youtube";
+    $sa[4]['socialdisplay']='style="display:none;"';
+    $sa[4]['socialurl']="##";
+    $sa[5]['socialtype']="instagram";
+    $sa[5]['socialdisplay']='style="display:none;"';
+    $sa[5]['socialurl']="##";
+    $content='
+        <p style="text-align:left;">Hello there '.$fullname.',<br>
+        We at Napstand are really happy you took your time to come on board our platform, <br>
+        We hope to deliver a lovely user experience as you move on to utilise our platform,<br>
+        to view your favourite content, see what else we have to offer, and raise awareness as well.<br>
+        </p>
+        <p style="text-align:right;">Thank You.</p>
+    ';
+    $footer='
+      <ul>
+          <li><strong>Email: </strong><a href="mailto:info@napstand.com">info@napstand.com</a></li>
+      </ul>
+    ';
+    $toemail=$email;
+    $emailout=generateMailMarkUp("napstand.com","$email","$title","$content","$footer","",$sa);
+    // // echo $emailout['rowmarkup'];
+    $headers = "MIME-Version: 1.0" . "\r\n";
+    $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
+    $headers .= 'From: <no-reply@napstand.com>' . "\r\n";
+    $subject="Welcome to Napstand";
+    if($host_email_send===true){
+      if(mail($toemail,$subject,$emailout['rowmarkup'],$headers)){
+
+      }else{
+        die('could not send Your email, something went wrong and we are handling it, meantime you could click the back button in your browser to get you out of here, we are really sorry');
+      }
+
+    }else{
+    	echo $emailout['rowmarkup'];
+    }
 }else if($displaytype=="userslist"){
 	$viewer="admin";
 	$outs=getUserGroup($viewer,"all");

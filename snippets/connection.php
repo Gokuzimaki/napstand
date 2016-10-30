@@ -2033,7 +2033,7 @@ function getSingleLGA($id){
   $row=mysql_fetch_assoc($run);
   return $row;
 } 
-function generateMailMarkup($from,$to,$title,$content,$footer,$type=""){
+function generateMailMarkup($from,$to,$title,$content,$footer,$type="",$socialarr=array()){
   include('globalsmodule.php');
   $row=array();
   $phpmailermarkup='';
@@ -2045,6 +2045,38 @@ function generateMailMarkup($from,$to,$title,$content,$footer,$type=""){
   if($host_addr=="http://localhost/napstand/"){
       $toplstyle='<link rel="stylesheet" href="'.$host_addr.'stylesheets/ink.css">';
       $innerstyle="";
+  }
+  // init social variables for the email
+  $facebookdisplay="";
+  $facebookurl="##";
+  $googledisplay="";
+  $googleurl="##";
+  $twitterdisplay="";
+  $twitterurl="##";
+  $youtubedisplay="";
+  $youtubeurl="##";
+  $linkedindisplay="";
+  $linkedinurl="##";
+  $instagramdisplay="";
+  $instagramurl="##";
+  if(count($socialarr)>0){
+    // social data array content format
+    /*
+    EXAMPLe
+      [0]['socialtype']='facebook'; // create varaible with _social attached
+      [0]['socialdisplay']='style="display:none;"';
+      [0]['socailurl']='url if applicable'; //where applicable
+    */
+      for($i=0;$i<count($socialarr);$i++){
+        // get the current variable type and set the 
+        // values as appropriate
+        if($socialarr[$i]['socialtype']!==""){
+          $var1=$socialarr[$i]['socialtype']."display";
+          $var2=$socialarr[$i]['socialtype']."url";
+          $$var1=$socialarr[$i]['socialdisplay'];
+          $$var2=$socialarr[$i]['socialurl'];
+        }
+      }
   }
   /*if($type=="fjc"){
     $logoout="fjclogo.png";
@@ -2167,11 +2199,11 @@ function generateMailMarkup($from,$to,$title,$content,$footer,$type=""){
             <tr>
              <td class="minifoot">
               <div id="sociallinks">
-                <div id="socialholder" name="socialholdfacebook"><a href="##" target="_blank"><img src="'.$host_addr.'images/Facebook-Icon.png" alt="Facebook"/></a></div>
-                <div id="socialholder" name="socialholdlinkedin"><a href="##" target="_blank"><img src="'.$host_addr.'images/Linkedin-Icon.png" alt="LinkedIn"/></a></div>
-                <div id="socialholder" name="socialholdtwitter"><a href="##" target="_blank"><img src="'.$host_addr.'images/Twitter-Icon.png" alt="Twitter"/></a></div>
-                <div id="socialholder" name="socialholdgoogleplus"><a href="##" target="_blank"><img src="'.$host_addr.'images/google-plus-icon.png" alt="Google+"/></a></div>
-                <div id="socialholder" name="socialholdyoutube"><a href="##" target="_blank"><img src="'.$host_addr.'images/YouTube-Icon.png" alt="YouTube"/></a></div>
+                <div id="socialholder" '.$facebookdisplay.'name="socialholdfacebook"><a href="'.$facebookurl.'" target="_blank"><img src="'.$host_addr.'images/Facebook-Icon.png" alt="Facebook"/></a></div>
+                <div id="socialholder" '.$linkedindisplay.'name="socialholdlinkedin"><a href="'.$linkedinurl.'" target="_blank"><img src="'.$host_addr.'images/Linkedin-Icon.png" alt="LinkedIn"/></a></div>
+                <div id="socialholder" '.$twitterdisplay.'name="socialholdtwitter"><a href="'.$twitterurl.'" target="_blank"><img src="'.$host_addr.'images/Twitter-Icon.png" alt="Twitter"/></a></div>
+                <div id="socialholder" '.$googledisplay.'name="socialholdgoogleplus"><a href="'.$googleurl.'" target="_blank"><img src="'.$host_addr.'images/google-plus-icon.png" alt="Google+"/></a></div>
+                <div id="socialholder" '.$youtubedisplay.'name="socialholdyoutube"><a href="'.$youtubeurl.'" target="_blank"><img src="'.$host_addr.'images/YouTube-Icon.png" alt="YouTube"/></a></div>
               </div>
               '.$footer.'
              </td>

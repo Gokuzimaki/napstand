@@ -1503,6 +1503,24 @@ $run=mysql_query($query)or die(mysql_error()." Line 58");
     $run=mysql_query($query)or die(mysql_error()." Line ".__LINE__);
     $confirmationlink=$host_addr."mobpoint.php?displaytype=accountactivation&uh=".$uhash.".".$uid."&utm_email=".$email."";
     $title="WELCOME TO NAPSTAND!!!";
+    $sa[0]['socialtype']="facebook";
+    $sa[0]['socialdisplay']='style="display:none;"';
+    $sa[0]['socialurl']="##";
+    $sa[1]['socialtype']="twitter";
+    $sa[1]['socialdisplay']='';
+    $sa[1]['socialurl']="http://twitter.com/thenapstand";
+    $sa[2]['socialtype']="google";
+    $sa[2]['socialdisplay']='style="display:none;"';
+    $sa[2]['socialurl']="##";
+    $sa[3]['socialtype']="linkedin";
+    $sa[3]['socialdisplay']='style="display:none;"';
+    $sa[3]['socialurl']="##";
+    $sa[4]['socialtype']="youtube";
+    $sa[4]['socialdisplay']='style="display:none;"';
+    $sa[4]['socialurl']="##";
+    $sa[5]['socialtype']="instagram";
+    $sa[5]['socialdisplay']='style="display:none;"';
+    $sa[5]['socialurl']="##";
     $content='
         <p style="text-align:left;">Hello there '.$fullname.',<br>
         We at Napstand are really happy you took your time to come on board our platform, <br>
@@ -1517,7 +1535,7 @@ $run=mysql_query($query)or die(mysql_error()." Line 58");
       </ul>
     ';
     $toemail=$email;
-    $emailout=generateMailMarkUp("napstand.com","$email","$title","$content","$footer","");
+    $emailout=generateMailMarkUp("napstand.com","$email","$title","$content","$footer","",$sa);
     // // echo $emailout['rowmarkup'];
     $headers = "MIME-Version: 1.0" . "\r\n";
     $headers .= "Content-type:text/html;charset=UTF-8" . "\r\n";
