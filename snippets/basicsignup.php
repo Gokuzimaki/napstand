@@ -1506,15 +1506,13 @@ $run=mysql_query($query)or die(mysql_error()." Line 58");
     $content='
         <p style="text-align:left;">Hello there '.$fullname.',<br>
         We at Napstand are really happy you took your time to come on board our platform, <br>
-        We hope to deliver a lovely user experience as you move on to utilise our platform<br>
+        We hope to deliver a lovely user experience as you move on to utilise our platform,<br>
         to view your favourite content, see what else we have to offer, and raise awareness as well.<br>
-        Seeing as you have just registered, all thats left is for you to confirm your account by <a href="'.$confirmationlink.'">Clicking here</a><br>
-        and thats it. note that your account will remain active for the next 7 days without being activated</p>
+        </p>
         <p style="text-align:right;">Thank You.</p>
     ';
     $footer='
       <ul>
-          <li><strong>Phone 1: </strong>0807-207-6302</li>
           <li><strong>Email: </strong><a href="mailto:info@napstand.com">info@napstand.com</a></li>
       </ul>
     ';
