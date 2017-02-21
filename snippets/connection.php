@@ -2039,7 +2039,7 @@ function generateMailMarkup($from,$to,$title,$content,$footer,$type="",$socialar
   $phpmailermarkup='';
   $logoout="";
   $logoalt="";
-  $parentheader="Muyiwa Afolabi's Website";
+  $parentheader="Napstand Website";
   $toplstyle="";
   $innerstyle=file_get_contents("../stylesheets/ink.css");
   if($host_addr=="http://localhost/napstand/"){
@@ -2062,7 +2062,7 @@ function generateMailMarkup($from,$to,$title,$content,$footer,$type="",$socialar
   if(count($socialarr)>0){
     // social data array content format
     /*
-    EXAMPLe
+    EXAMPLE
       [0]['socialtype']='facebook'; // create varaible with _social attached
       [0]['socialdisplay']='style="display:none;"';
       [0]['socailurl']='url if applicable'; //where applicable

@@ -69,6 +69,7 @@
             	*<b>Scheduled</b>: Your post will be available on the "<b>Schedule date</b>" you choose<br>
             </p>
 		</div>
+        
 		<div class="col-sm-4">
 			<div class="form-group">
 				<label>Price(Set to zero if this issue is free)</label>

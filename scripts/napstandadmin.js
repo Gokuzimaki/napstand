@@ -2013,7 +2013,6 @@ $(document).on("click","select[name=general_ipp_select]",function(){
                 /*if(dataparent.childNodes[i].name=="ipp"){
                     dipp=dataparent.childNodes[i].value;
                 }*/
-
             }
             // for testing purposes only
             // outputtype="";

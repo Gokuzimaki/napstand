@@ -91,3 +91,68 @@ $.cachedScript( "../scripts/js/tinymce/basic_config.js" ).done(function( script,
 					</div>
 				</form>
 			</div>
+			<script>
+				tinyMCE.init({
+			        theme : "modern",
+			        selector: "textarea#adminposter",
+			        skin:"lightgray",
+			        width:"94%",
+			        height:"650px",
+			        external_image_list_url : ""+host_addr+"snippets/mceexternalimages.php",
+			        plugins : [
+			         "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+			         "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+			         "save table contextmenu directionality emoticons template paste textcolor responsivefilemanager"
+			        ],
+			        // toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image | print preview media fullpage | forecolor backcolor emoticons",
+			        toolbar1: "undo redo | bold italic underline | fontselect fontsizeselect | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect",
+			        toolbar2: "| responsivefilemanager | link unlink anchor | image media | forecolor backcolor  | print preview code ",
+			        image_advtab: true ,
+			        editor_css:""+host_addr+"stylesheets/mce.css?"+ new Date().getTime(),
+			        content_css:""+host_addr+"stylesheets/mce.css?"+ new Date().getTime(),
+			        external_filemanager_path:""+host_addr+"scripts/filemanager/",
+			        filemanager_title:"Content Filemanager" ,
+			        external_plugins: { "filemanager" : ""+host_addr+"scripts/filemanager/plugin.min.js"}
+				});
+				tinyMCE.init({
+				        theme : "modern",
+				        selector:"textarea#postersmalltwo",
+				        menubar:false,
+				        statusbar: false,
+				        plugins : [
+				         "advlist autolink link image lists charmap print preview hr anchor pagebreak spellchecker",
+				         "searchreplace wordcount visualblocks visualchars code fullscreen insertdatetime media nonbreaking",
+				         "save table contextmenu directionality emoticons template paste textcolor responsivefilemanager"
+				        ],
+				        width:"80%",
+				        height:"300px",
+				        toolbar1: "undo redo | bold italic underline | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | styleselect",
+				        toolbar2: "| link unlink anchor | emoticons",
+				        image_advtab: true ,
+				        editor_css:""+host_addr+"stylesheets/mce.css?"+ new Date().getTime(),
+				        content_css:""+host_addr+"stylesheets/mce.css?"+ new Date().getTime(),
+						external_filemanager_path:""+host_addr+"scripts/filemanager/",
+					   	filemanager_title:"Content Filemanager" ,
+					   	external_plugins: { "filemanager" : ""+host_addr+"scripts/filemanager/plugin.min.js"}
+				});   
+				//Date range picker
+			  if($(document).datepicker){
+
+			  		$('#reservation').datepicker();
+			  		//Timepicker
+			        $(".timepicker").timepicker({
+			          showInputs: false
+			        });
+				  //Date range picker with time picker
+				  $('#reservationtime').daterangepicker({timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A'});
+			  }
+			  if($(document).inputmask){
+			      $("#datemask").inputmask("dd-mm-yyyy", {"placeholder": "dd-mm-yyyy"});
+			      //Datemask2 mm/dd/yyyy
+			      $("#datemask2").inputmask("mm/dd/yyyy", {"placeholder": "mm/dd/yyyy"});
+			      //Money Euro
+			      $("[data-mask]").inputmask();
+			      $(".timemask").inputmask("hh:mm", {"placeholder": "hh:mm"});
+
+			  }
+			</script>
